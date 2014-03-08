@@ -1,0 +1,36 @@
+﻿{
+    "name": "ion-sound",
+    "version": "1.3.0",
+    "title": "Ion.Sound",
+    "description": "Plugin for playing sounds on events. Today websites are full of events (new mail, new chat-message, content update etc.). Often it is not enough to indicate this events only visually to get user attention. You need sounds! This library, made for playing small sounds, will help you with this task.",
+    "keywords": [
+        "sound",
+        "sounds",
+        "audio",
+        "html5",
+        "events",
+        "alert",
+        "effect",
+        "mp3",
+        "ogg",
+        "ui"
+    ],
+    "author": {
+        "name": "IonDen",
+        "url": "https://github.com/IonDen",
+        "email": "denis.ineshin@gmail.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://ionden.com/a/plugins/licence-en.html"
+        }
+    ],
+    "homepage": "https://github.com/IonDen/ion.sound",
+    "docs": "https://github.com/IonDen/ion.sound/blob/master/readme.md",
+    "demo": "http://ionden.com/a/plugins/ion.sound/en.html",
+    "download": "http://ionden.com/a/plugins/ion.sound/ion.sound-1.3.0.zip",
+    "dependencies": {
+        "jquery": ">=1.6"
+    }
+}

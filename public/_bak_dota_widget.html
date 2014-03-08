@@ -1,0 +1,141 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="css/widget_style.css">
+ <script src="/socket.io/socket.io.js"></script>
+ <script>
+    function sendMessage(socket, commandstring, meta) {
+        socket.emit('send', {message: commandstring, content: meta });
+    }	
+	
+    window.onload = function() {
+        var messages = [];
+        var hostname = 'http://'+document.location.hostname+':1337';
+        var socket = io.connect(hostname);
+        var sendBanButton = document.getElementById("sendban");
+		var sendUnbanButton = document.getElementById("sendunban");
+        var banMessage = document.getElementById("banmessage");
+		
+		var sendPickButton = document.getElementById("sendpick");
+		var sendUnpickButton = document.getElementById("sendunpick");
+        var pickPlayer = document.getElementById("playerselect");
+		var pickSlot = document.getElementById("slotselect");
+        
+		//*----- BANS -----*//
+		
+		function prepBanJSON(team) {
+			var expData = pickPlayer.value.split(".");		
+			var ban = {player: expData[0], tf_class: expData[1]};			
+			sendMessage(socket, 'df_ban', JSON.stringify(ban));
+		}
+		
+		function prepUnbanJSON(team) {
+			var expData = pickPlayer.value.split(".");		
+			var unban = {player: expData[0]};			
+			sendMessage(socket, 'df_unban', JSON.stringify(unban));
+		}
+		
+		sendBanButton.onclick = function(){ prepBanJSON(); }
+		sendUnbanButton.onclick = function(){ prepUnbanJSON(); }
+		
+		//sendBanButton.onclick = function(){ sendMessage(socket, 'df_ban', banMessage.value); }
+		//sendUnbanButton.onclick = function(){ sendMessage(socket, 'df_unban', banMessage.value); }
+		
+		//*----- PICKS -----*//
+		
+		function prepPickJSON(team) {
+			var expData = pickPlayer.value.split(".");		
+			var pick = {player: expData[0], tf_class: expData[1], team: "", slot: pickSlot.value};
+			pickSlot.value.substring(0, 4) == "#red" ? pick.team = "red" : pick.team = "blu"			
+			sendMessage(socket, 'df_pickplayer', JSON.stringify(pick));
+		}
+		
+		function prepUnpickJSON(team) {
+			var unpick = {team: "", slot: pickSlot.value};	
+			pickSlot.value.substring(0, 4) == "#red" ? unpick.team = "red" : unpick.team = "blu"			
+			sendMessage(socket, 'df_unpick', JSON.stringify(unpick));
+		}
+		
+		sendPickButton.onclick = function(){ prepPickJSON(); }
+		sendUnpickButton.onclick = function(){ prepUnpickJSON(); }
+    }    
+ </script>
+</head>
+<body>
+<span class="heading">Picks and Bans:</span><br /><br />
+<select id="playerselect" class="dbselect">
+	<!-- Scouts -->
+	<option value="clockwork.scout">Clockwork</option>
+	<option value="ruwin.scout">Ruwin</option>
+	<option value="squid.scout">Squid</option>
+	<option value="cyzer.scout">Cyzer</option>
+	<option value="decimate.scout">Decimate</option>
+	<option value="enigma.scout">Enigma</option>
+	<option value="shrugger.scout">Shrugger</option>
+	<option value="youmustmike.scout">YouMustMike</option>
+	<option value="deadbolt.scout">Deadbolt</option>
+	<!-- Soldiers -->
+	<option value="blaze.soldier">Blaze</option>
+	<option value="tlr.soldier">TLR</option>
+	<option value="seagull.soldier">Seagull</option>
+	<option value="lansky.soldier">Lansky</option>
+	<option value="grape.soldier">Grape</option>
+	<option value="tagg.soldier">Tagg</option>
+	<option value="ma3la.soldier">Ma3la</option>
+	<option value="milo.soldier">Milo</option>
+	<option value="rr.soldier">RR</option>
+	<option value="platinum.soldier">Platinum</option>
+	<!-- Pyros -->
+	<option value="cygnus.pyro">Cygnus</option>
+	<option value="hueylewis.pyro">Huey Lewis</option>
+	<option value="puddingcup.pyro">Pudding Cup</option>
+	<!-- Demomen -->
+	<option value="bdonski.demoman">Bdonski</option>
+	<option value="xalox.demoman">Xalox</option>
+	<option value="duwatna.demoman">Duwatna</option>
+	<option value="b4nny.demoman">B4nny</option>
+	<option value="dummy.demoman">Dummy</option>
+	<!-- Heavies -->
+	<option value="snailboat.heavy">Snailboat</option>
+	<option value="arthur.heavy">Arthur</option>
+	<option value="skyrolla.heavy">Skyrolla</option>
+	<!-- Engineers -->
+	<option value="sigafoo.engineer">Sigafoo</option>
+	<option value="spamfest.engineer">Spamfest</option>
+	<option value="vhalin.engineer">Vhalin</option>
+	<!-- Medics -->
+	<option value="smaka.medic">Smaka</option>
+	<option value="shade.medic">Shade</option>
+	<option value="indust.medic">Indust</option>
+	<option value="pyyyour.medic">Pyyyour</option>
+	<option value="harbleu.medic">Harbleu</option>
+	<!-- Snipers -->
+	<option value="bloodsire.sniper">Bloodsire</option>
+	<option value="max.sniper">Max</option>
+	<option value="paragon.sniper">Paragon</option>
+	<!-- Spies -->
+	<option value="stabby.spy">Stabby</option>
+	<option value="hei.spy">Hei</option>
+	<option value="acooma.spy">Acooma</option>
+	
+</select>
+
+<select id="slotselect" class="dbselect">
+	<option value="#red-1">Red 1</option>
+	<option value="#red-2">Red 2</option>
+	<option value="#red-3">Red 3</option>
+	<option value="#red-4">Red 4</option>
+	<option value="#red-5">Red 5</option>
+	<option value="#red-6">Red 6</option>
+	<option value="#blu-1">Blu 1</option>
+	<option value="#blu-2">Blu 2</option>
+	<option value="#blu-3">Blu 3</option>
+	<option value="#blu-4">Blu 4</option>
+	<option value="#blu-5">Blu 5</option>
+	<option value="#blu-6">Blu 6</option>
+</select>
+<br /><br />
+<button type="button" class="sec" id="sendpick">Send pick</button><button type="button" class="sec" id="sendunpick">Send unpick</button><br />
+<button type="button" class="sec" id="sendban">Send ban</button><button type="button" class="sec" id="sendunban">Send unban</button><br />
+<br />
+</body>
+</html>

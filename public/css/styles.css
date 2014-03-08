@@ -1,0 +1,458 @@
+/**************************************/
+/*     	          FONT		    	  */
+/**************************************/
+@font-face {
+    font-family: 'AvenirMedium';
+    src: url('../font/avenir_medium.eot');
+    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
+         url('../font/avenir_medium.woff') format('woff'),
+         url('../font/avenir_medium.ttf') format('truetype'),
+         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+	background: none;
+	background:url('../img/hud_test_image2.png');
+    background-size: 1280px 720px;
+    background-repeat: no-repeat;
+}
+
+#container {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    width: 1280;
+    height: 720;
+    overflow: hidden;
+    font-size: 18px;
+}
+
+/* ----- Links ----- */
+
+#links {
+    color: #f4f4f5; 
+    background-color: transparent;
+    font-family: AvenirMedium;
+    font-size:26px;
+    line-height: 36px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    width: 0px;
+    transition: width 0.5s linear;
+    -webkit-transition: width 0.5s linear;
+	overflow-x: hidden;
+}
+
+#linktitle {
+    overflow:hidden;
+    color: #f4f4f5; 
+    background: #e7501e;
+    margin: 2px 30px;
+    vertical-align: middle;
+}
+
+#linktitlecontainer {
+    overflow:hidden;
+    background: #e7501e;
+    height: 40px;
+}
+
+#linktext {
+    overflow: hidden;
+    margin:16px 30px;
+    line-height: 40px;
+	opacity: 0;
+}
+
+#linktextcontainer {
+    font-size:24px;
+	position: relative; /*required to make z-index work*/
+    z-index: -1;
+    overflow: hidden;
+    background-color: #f4f4f5;
+	color: black;
+    height: 194px;
+	transition: width 300ms linear, height 500ms linear, transform 500ms ease, opacity 100ms ease;
+	-webkit-transition: width 300ms linear, height 500ms linear, -webkit-transform 500ms ease, opacity 100ms ease;
+	transform-origin: 0% 0%;
+	-webkit-transform-origin: 0% 0%;
+	transform: translateY(-194px);
+	-webkit-transform: translateY(-194px);
+}
+
+#hattycontainer {
+	perspective: 300px;
+	-webkit-perspective: 300px;
+	perspective-origin: 50% 50%;
+	-webkit-perspective-origin: 50% 50%;
+	z-index: 2;	
+	position: absolute;
+	top: 210px;
+	right: 405px;
+	transition: right 370ms linear;
+    -webkit-transition: right 370ms linear;
+}
+
+#hatty {
+	width: 155px;
+	height: 110px;
+    background:url('../img/hatty_shadow.png');
+    background-size: contain;
+	background-repeat: no-repeat;
+    vertical-align:middle;
+	transition: transform 500ms ease, opacity 200ms ease;
+    -webkit-transition: -webkit-transform 500ms ease, opacity 200ms ease;
+	transform: translate3d( 0, 100px, -100px ) rotateX( -90deg );
+	-webkit-transform: translate3d( 0, 100px, -100px ) rotateX( -90deg );
+	opacity: 0;
+	
+	/*causes massive aliasing issues when used with animations */
+	/*filter: drop-shadow(5px 5px 5px #222);
+	-webkit-filter: drop-shadow(5px 5px 5px #222);*/
+	
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+	animation-duration: 5s;
+	-webkit-animation-duration: 5s;
+}
+
+#twitter {
+    display:inline-block;
+    width:32px;
+    height: 32px;
+    background:url('../img/twitter.png');
+    background-size: cover;
+    vertical-align:middle;
+}
+
+#youtube {
+    display:inline-block;
+    width:32px;
+    height: 32px;
+    background:url('../img/youtube.png');
+    background-size: cover;
+    vertical-align:middle;
+}
+
+#steamgroup {
+    display:inline-block;
+    width:32px;
+    height: 32px;
+    background:url('../img/steam.png');
+    background-size: cover;
+    vertical-align:middle;
+}
+
+#website {
+    display:inline-block;
+    width:32px;
+    height: 32px;
+    background:url('../img/website.png');
+    background-size: cover;
+    vertical-align:middle;
+}
+
+/* ----- Alert ----- */
+
+#alert {
+    color: #f4f4f5; 
+    background-color: #f4f4f5;
+    font-family: AvenirMedium;
+    font-size:20px;
+    line-height: 1.4em;
+    position:absolute;
+    top:0;
+    left:0;
+    width: 0px;
+    transition: width 0.3s linear;
+    -webkit-transition: width 0.3s linear;
+}
+
+#alerttitle {
+    overflow:hidden;
+    color: #f4f4f5; 
+    margin: 0.1em 0.1em 0.1em 1em;
+    vertical-align: middle;
+}
+
+#alerttitlecontainer {
+    overflow:hidden;
+    background-color: #ffcc28;
+    transition: background-color 0.4s linear;
+    -webkit-transition: background-color 0.4s linear;
+    height: 1.5em;
+}
+
+#exclamation{
+	opacity: 0;
+    display:inline-block;
+    width:20px;
+    height: 20px;
+    background:url('../img/exclamation_64.png');
+    background-size: cover;
+	float:right;
+	vertical-align:middle;
+	transition: opacity 150ms linear;
+    -webkit-transition: opacity 150ms linear;
+	margin: 0.15em; /* hack because I'm bad */
+}
+
+#alerttext {
+    overflow: hidden;
+    margin: 0.3em 1em;
+    line-height: 1.6em;
+	font-size: 18px;
+}
+
+#alerttextcontainer {
+    background-color: #f4f4f5;
+    overflow: hidden;
+    height: 0px;
+    transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+	color: black;
+}
+
+#alert .blue {
+    color: #99ccff;
+}
+
+#alert .red {
+    color: #ff4040;
+}
+
+/* ----- Lo3rd ----- */
+
+#shape {
+	width: 175px; 
+	height: 110px;
+	background: url('../img/shape.png');
+	background-size: cover;
+	background-repeat: none;
+	position: absolute;
+	top: 599;
+	left: -190;
+	z-index: 1;
+	transition: left 500ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+	-webkit-transition: left 500ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+}
+
+#lowerthird {
+    color: #f4f4f5; 
+    background-color: transparent;
+    font-family: AvenirMedium;
+    font-size:20px;
+    line-height: 1.4em;
+	max-width: 40.5%;
+	min-width: 33%;
+	width: auto;
+    position:absolute;
+    top:100%;
+    left:0;
+    transform: translate( 0%, -120% );
+    -webkit-transform: translate( 0%, -120% );
+    transition: transform 600ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+    -webkit-transition: -webkit-transform 600ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+}
+
+#lowerthirdtitle {
+    color: #f4f4f5; 
+    margin: 0.1em 1em 0.1em 30px;
+    vertical-align: middle;
+}
+
+#lowerthirdtitlecontainer {
+    overflow:hidden;
+    position: relative;
+    left: -100%;
+    background-color: #ffcc28;
+    -webkit-transition: background-color 0.5s linear;
+    height: 1.5em;
+}
+
+#lowerthirdtext {
+    margin: 0.3em 1em 0.4em 23px;
+    line-height: 1.6em;
+	font-size: 18px;
+}
+
+#lowerthirdtextcontainer {
+    background-color: #f4f4f5;
+    position: relative;
+    overflow: hidden;
+    left: -100%;
+    height: 3.3em;
+	color: black;
+}
+
+/* ----- Transition ----- */
+#shuttercontainer {
+	z-index: 10;
+	overflow:hidden;
+	transition: background-color 0.4s linear;
+    -webkit-transition: background-color 0.4s linear;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+#shutter1 {	
+	left: 0%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+}
+#shutter2 {
+	left: 12.5%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+}
+#shutter3 {
+	left: 25%;	
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+	background:url('../img/logo_slices/logo_slice1.png');
+    background-repeat: no-repeat;
+	background-position:center;
+}
+#shutter4 {
+	left: 37.5%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+	background:url('../img/logo_slices/logo_slice2.png');
+    background-repeat: no-repeat;
+	background-position:center;
+}
+#shutter5 {
+	left: 50%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+	background:url('../img/logo_slices/logo_slice3.png');
+    background-repeat: no-repeat;
+	background-position:center;
+}
+#shutter6 {
+	left: 62.5%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+	background:url('../img/logo_slices/logo_slice4.png');
+    background-repeat: no-repeat;
+	background-position:center;
+}
+#shutter7 {
+	left: 75%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+}
+#shutter8 {
+	left: 87.5%;
+	width: 12.5%;
+	height: inherit;	
+	transition: inherit;
+	-webkit-transition: inherit;
+	position: inherit;
+}
+
+/* ----- Rosters ----- */
+
+#rosterwrapper {
+    background-color: transparent;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 100%;
+	overflow: hidden;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%,-50%);
+}
+
+#rostercontainer {
+    color: #f4f4f5; 
+    background-color: transparent;
+    font-family: AvenirMedium;
+    font-size:26px;
+    line-height: 36px;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    width: 19.38em;
+	overflow: hidden;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%,-50%);
+    white-space: nowrap;
+}
+
+#rosterheader {
+    background-color: #e7501e;
+    color: #f4f4f5;
+}
+
+#leftroster, #rightroster, #classicon {
+    color: black;
+}
+
+#leftroster, #rightroster {
+    width: 9em;
+}
+
+#leftroster {
+    float: right;
+    text-align: right;
+}
+
+#rightroster {
+    float: left;
+    text-align: left;
+}
+
+#leftroster > div, #rightroster > div, #classicon > div {
+    background-color: #f4f4f5;
+}
+
+.classicon {
+    height: 36px;
+    width: 36px;
+    background-size: 100% auto;
+    background-image: url("../img/icons.png"); 
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+}
+
+.leftheader.cell, .rightheader.cell {
+    width: 9em;
+}
+
+.leftheader.cell {
+    text-align: right;
+}

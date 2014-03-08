@@ -1,0 +1,39 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/scoreboard.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
+<script src="js/scoreboard.js"></script>  
+</head>
+<body>
+<div id="container">
+<div id="scoreboard">
+        <table id="sb-table">
+        <tr>
+            <th id="sb-map1">Map1</th>
+            <th id="sb-map2">Map2</th>		
+            <th id="sb-map3">Map3</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="red">RED</div>
+                <span id="map1-team1-score">0</span><span> - </span><span id="map1-team2-score">0</span>
+                <div class="blu">BLU</div>
+            </td>
+            <td>
+                <div class="red">RED</div>
+                <span id="map2-team1-score">0</span><span> - </span><span id="map2-team2-score">0</span>
+                <div class="blu">BLU</div>
+            </td>
+            <td>
+                <div class="red">RED</div>
+                <span id="map3-team1-score">0</span><span> - </span><span id="map3-team2-score">0</span>
+                <div class="blu">BLU</div>
+            </td>
+        </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

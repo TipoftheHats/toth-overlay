@@ -1,0 +1,190 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="css/widget_style.css">
+ <script src="/socket.io/socket.io.js"></script>
+ <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
+ <script>
+	var globaloptions = {
+		scout: [
+			"clockwork",
+			"ruwin",
+			"squid",
+			"cyzer",
+			"decimate",
+			"enigma",
+			"shrugger",
+			"youmustmike",
+			"deadbolt"
+		],
+		soldier: [
+			"blaze",
+			"tlr",
+			"seagull",
+			"lansky",
+			"grape",
+			"tagg",
+			"ma3la",
+			"milo",
+			"rr",
+			"platinum"
+		],
+		pyro: [
+			"cygnus",
+			"hueylewis",
+			"puddingcup"   
+		],
+		demoman: [
+			"bdonski",
+			"xalox",
+			"duwatna",
+			"b4nny",
+			"dummy"
+		],
+		heavy: [
+			"snailboat",
+			"arthur",
+			"skyrolla"   
+		],
+		engineer: [
+			"sigafoo",
+			"spamfest",
+			"vhalin"   
+		],
+		medic: [
+			"smaka",
+			"shade",
+			"indust",
+			"pyyyour",
+			"harbleu"
+		],
+		sniper: [
+			"bloodsire",
+			"max",
+			"paragon"
+		],
+		spy: [
+			"stabby",
+			"hei",
+			"acooma"
+		]   
+	};
+    
+	$(document).ready(function(){
+		$("#classselect").change(function(){
+			populatePlayerSelect();
+		});  
+
+        function populatePlayerSelect() {
+            var selectedClass = $('#classselect').find("option:selected").attr("class");    
+            var options = globaloptions[selectedClass];
+            var newoptions = "";
+            for(var i = 0; i < options.length; i++){
+                newoptions+="<option>"+ options[i] +"</option>";
+                $("#playerselect").html(newoptions);           
+            }
+        }
+
+        //initalize
+        populatePlayerSelect();
+	});
+ 
+    function sendMessage(socket, commandstring, meta) {
+        socket.emit('send', {message: commandstring, content: meta });
+    }	
+	
+    window.onload = function() {
+        var messages = [];
+        var hostname = 'http://'+document.location.hostname+':1337';
+        var socket = io.connect(hostname);
+        var sendBanButton = document.getElementById("sendban");
+		var sendUnbanButton = document.getElementById("sendunban");
+        var banMessage = document.getElementById("banmessage");
+		
+		var sendPickButton = document.getElementById("sendpick");
+		var sendUnpickButton = document.getElementById("sendunpick");
+        var pickClass = document.getElementById("classselect");
+		var pickPlayer = document.getElementById("playerselect");
+		var pickSlot = document.getElementById("slotselect");
+        
+		//*----- BANS -----*//
+		
+		function prepBanJSON(team) {	
+			var ban = {player: $(pickPlayer).find("option:selected").html(), 
+					   tf_class: $(pickClass).find("option:selected").attr("class")};	
+					   
+			sendMessage(socket, 'df_ban', JSON.stringify(ban));
+		}
+		
+		function prepUnbanJSON(team) {	
+			var unban = {player: $(pickPlayer).find("option:selected").html()};			
+			sendMessage(socket, 'df_unban', JSON.stringify(unban));
+		}
+		
+		sendBanButton.onclick = function(){ prepBanJSON(); }
+		sendUnbanButton.onclick = function(){ prepUnbanJSON(); }
+		
+		//sendBanButton.onclick = function(){ sendMessage(socket, 'df_ban', banMessage.value); }
+		//sendUnbanButton.onclick = function(){ sendMessage(socket, 'df_unban', banMessage.value); }
+		
+		//*----- PICKS -----*//
+		
+		function prepPickJSON(team) {
+			var expData = pickPlayer.value.split(".");		
+			var pick = {player: $(pickPlayer).find("option:selected").html(), 
+						tf_class: $(pickClass).find("option:selected").attr("class"), 
+						team: "", 
+						slot: pickSlot.value};
+
+			pickSlot.value.substring(0, 4) == "#red" ? pick.team = "red" : pick.team = "blu"			
+			sendMessage(socket, 'df_pickplayer', JSON.stringify(pick));
+		}
+		
+		function prepUnpickJSON(team) {
+			var unpick = {team: "", 
+						  slot: pickSlot.value};
+						  
+			pickSlot.value.substring(0, 4) == "#red" ? unpick.team = "red" : unpick.team = "blu"			
+			sendMessage(socket, 'df_unpick', JSON.stringify(unpick));
+		}
+		
+		sendPickButton.onclick = function(){ prepPickJSON(); }
+		sendUnpickButton.onclick = function(){ prepUnpickJSON(); }
+    }    
+ </script>
+</head>
+<body>
+<div class="panel">
+<span class="heading">Picks and Bans:</span><br/>
+<select id="classselect">
+    <option class="scout" value="1">Scouts</option>
+    <option class="soldier" value="2">Soldiers</option>
+    <option class="pyro">Pyros</option>
+    <option class="demoman">Demomen</option>
+    <option class="heavy">Heavies</option>
+    <option class="engineer">Engineers</option>
+    <option class="medic">Medics</option>
+    <option class="sniper">Snipers</option>
+    <option class="spy">Spies</option>
+</select>
+
+<select id="playerselect"></select>
+
+<select id="slotselect" class="dbselect">
+	<option value="#red-1">Red 1</option>
+	<option value="#red-2">Red 2</option>
+	<option value="#red-3">Red 3</option>
+	<option value="#red-4">Red 4</option>
+	<option value="#red-5">Red 5</option>
+	<option value="#red-6">Red 6</option>
+	<option value="#blu-1">Blu 1</option>
+	<option value="#blu-2">Blu 2</option>
+	<option value="#blu-3">Blu 3</option>
+	<option value="#blu-4">Blu 4</option>
+	<option value="#blu-5">Blu 5</option>
+	<option value="#blu-6">Blu 6</option>
+</select>
+<button type="button" class="sec" id="sendpick">Send pick</button><button type="button" class="sec" id="sendunpick">Send unpick</button>
+<button type="button" class="sec" id="sendban">Send ban</button><button type="button" class="sec" id="sendunban">Send unban</button>
+</div>
+</body>
+</html>

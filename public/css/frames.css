@@ -1,0 +1,17 @@
+#ss_frame {
+	-webkit-transition: all 0.5s linear;
+	position: absolute;
+	z-index: 3;
+	float: left;
+	width: 1280;
+	height: 720;
+}
+
+#bracket_frame {
+	-webkit-transition: all 0.5s linear;
+	position: absolute;
+	z-index: 3;
+	float: left;
+	width: 1280;
+	height: 720;
+}

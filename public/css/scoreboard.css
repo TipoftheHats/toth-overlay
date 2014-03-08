@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'AvenirMedium';
+    src: url('../font/avenir_medium.eot');
+    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
+         url('../font/avenir_medium.woff') format('woff'),
+         url('../font/avenir_medium.ttf') format('truetype'),
+         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+	background: none;
+	background:url('../img/hud_test_image2.png');
+    background-size: 1280px 720px;
+    background-repeat: no-repeat;
+}
+
+#container {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    width: 1280;
+    height: 720;
+    overflow: hidden;
+}
+
+/* ----- Scoreboard ----- */
+
+#scoreboard {
+    background-color: #151515;
+    width: 30%;
+    position: absolute;
+    left: 69.5%;
+    top: 1%;
+}
+
+#sb-table {
+    width: 100%;
+    color: #f4f4f5;
+    font-family: AvenirMedium;
+    font-size:16px;
+}
+
+#sb-table th {
+    font-weight: normal;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.red {
+    color: f5333e;
+    display: inline;
+}
+
+.blu {
+    color: 0a80dd;
+    display: inline;
+}
+
+.darken {
+    color: gray !important;
+}

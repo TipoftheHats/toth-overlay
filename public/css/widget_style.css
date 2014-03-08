@@ -1,0 +1,199 @@
+@font-face {
+	font-family: 'Open Sans Condensed';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Open Sans Condensed Bold'), local('OpenSans-CondensedBold'), url(http://themes.googleusercontent.com/static/fonts/opensanscondensed/v6/gk5FxslNkTTHtojXrkp-xONSK5BxN3NFS4EJkViHIqo.woff) format('woff');
+}
+
+body {
+	font-size: 100%;
+    margin: 0px;
+    background: url("http://teamfortress.tv/img/base/bg-tex.png") repeat scroll 0% 0%, none repeat scroll 0% 0% rgb(134, 141, 141);
+}
+
+#container {
+    margin: 0.5em auto;
+    max-width: 66em;
+}
+
+.heading {
+	font: bold 21px/21px "Open Sans Condensed",Arial,sans-serif;
+}
+
+.panel {
+    padding: 0.5em;
+    box-sizing: border-box;
+    min-width: 10em;
+    width: 16em;
+    background: none repeat scroll 0% 0% rgb(228, 228, 228);
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 0.1em;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 0.5em;
+}
+
+.heading {
+    font: 1.3em "Roboto Condensed Regular",Arial,sans-serif;
+    text-transform: capitalize;
+    display: inline;
+}
+
+.subheading {
+    font: 0.9em "Roboto Condensed Regular",Arial,sans-serif;
+    color: #777;
+    width: 100%;
+}
+
+.rowtitle {
+    font: 0.7em "Roboto Condensed Regular",Arial,sans-serif;
+    color: #AAA;
+    text-transform: uppercase;
+}
+
+.rowtitle.red { color: RGB(184, 56, 59); }
+.rowtitle.blue { color: RGB(80, 120, 180); }
+
+.cell {
+    display:table-cell;
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.triplet {
+    display: table;
+    width: 100%;
+}
+
+.row {
+    display: table-row;
+    width: 100%;
+    margin-bottom: 0.2em;
+}
+
+/* maps */
+.maprow .cell:nth-child(1){
+    width:50%;
+    /*make map selectors column wider */
+}
+
+.dbselect.mapsselect {
+    width:90%;
+}
+
+.currentmap {
+    display:inline-block;
+    cursor: default;
+    font-size: 0.8em;
+    vertical-align:middle;
+    color: #AAA;
+    width:10%;
+}
+
+.currentmap.selected {
+    color: #333;
+}
+
+.scorebuttons {
+    display: inline-block;
+    height:100%;
+    vertical-align: middle;
+    margin-bottom: 0.2em;
+    width:18%;
+    cursor:default;
+}
+
+.scoreplus{
+    width:0;
+    height:0;
+    border-left: 0.4em solid transparent;
+    border-right: 0.4em solid transparent;
+    border-bottom: 0.5em solid #333;
+}
+
+.scoreminus {
+    width:0;
+    height:0;
+    margin-top:0.2em;
+    padding-top:0.2em;
+    border-left: 0.4em solid transparent;
+    border-right: 0.4em solid transparent;
+    border-top: 0.5em solid #AAA;
+}
+
+.maprow .fa {
+    margin: 0;
+    padding: 0;
+    float:left;
+}
+
+.maprow input {
+    width:85%;
+}
+
+/* rosters */
+.rosterrow .cell {
+    width: 50%;
+}
+
+.rosterrow input {
+    width:100%;
+}
+
+.classicon {
+    height: 16px;
+    width: 16px;
+    background-size: 100% auto;
+    background-image: url("../img/icons.png"); 
+}
+
+/* fontawesome */
+.fa {
+    float:right;
+    margin: 0.2em;
+}
+
+/* WRGB, CMYK reduced value, BGR analogs ... http://color-hexa.com/ */
+.fa-volume-up {color:white;}
+.fa-bar-chart-o {color:red;}
+.fa-link {color:blue;}
+.fa-bell-o {color:green;}
+.fa-sort-amount-desc {color: #0BB;}
+.fa-question-circle {color: #B0B;}
+.fa-list {color: #BB0;}
+.fa-video-camera {color: black;}
+.fa-map-marker {color: #8000ff;}
+.fa-calendar {color: #ff8000;}
+
+/* buttons */
+.hidebutton {
+    width:100%;
+    color:white!important;
+    text-shadow: 1px 1px 0px rgba(0,0,0, 0.75);
+    text-transform: capitalize;
+    background: linear-gradient(to bottom, rgb(160, 160, 160), rgb(128, 128, 128))!important;
+}
+
+.button {
+    display: table-cell;
+    padding: 1px;
+}
+
+button {
+    font-family: Roboto Condensed Regular;
+    border: 1px solid rgb(153, 153, 153);
+    display: inline-block;
+    padding: 0.2em;
+    width: 100%;
+    margin: 0.1em 0em;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.45);
+    background: linear-gradient(to bottom, rgb(242, 242, 242), rgb(221, 221, 221));
+}
+
+button:active {
+    color: gray;
+}

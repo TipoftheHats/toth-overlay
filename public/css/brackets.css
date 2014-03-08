@@ -1,0 +1,62 @@
+.header, .ad-bar, .menu, body.with-corner-ad div.ad-bar, 
+body.with-corner-ad div.corner-ad, .hidden-phone, h3, 
+.highlighted, .bracket_controls, #push, .footer, .blank-round,
+.padding-for-drop-down, .clear, body.with-footer-ad #footer {
+    display: none;
+    width: 0px;
+    height: 0px;
+    margin: 0px;
+    padding: 0px;
+    background: none;
+}
+
+body div.content {
+    margin: 0px;
+    padding: 0px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    background: none;
+}
+
+body.with-footer-ad #wrap {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: none;
+}
+
+body.with-corner-ad div.content {
+    margin: 0px;
+    padding: 0px;
+}
+
+.overthrow {
+    display: table;
+    
+}
+
+#overthrow_bracket{
+    background: none;
+}
+
+div#challonge_tournaments div#challonge_bracket table.match_table {
+    background: none;
+}
+
+#overthrow_bracket>div:only-of-type {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.match_top_half {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.match_bottom_half {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'AvenirMedium';
+    src: url('../font/avenir_medium.eot');
+    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
+         url('../font/avenir_medium.woff') format('woff'),
+         url('../font/avenir_medium.ttf') format('truetype'),
+         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
+}
+
+body {
+    margin: 0px;
+	background:black;
+    font-family: AvenirMedium;
+}
+
+
+#container {
+    overflow:hidden;
+    height:80px
+}
+
+#bgcolor{
+    width:100%; 
+    height:106px; 
+    position:absolute; 
+    top:0px; 
+    left:0px; 
+    z-index:-15;
+}
+
+#contentcolor{
+}		
+
+#stats{
+    text-align:justify;
+    height:80px;
+    overflow:hidden;
+    padding:5px;
+    -webkit-transition: -webkit-transform 500ms ease-out;
+}
+
+.l{
+    height:80px;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.c{
+    width:30px;
+    height:80px;
+    display:inline-block;
+    vertical-align:middle
+}
+
+.spacer{
+    width:1px;
+    height:80px;
+    position:relative;
+    display:inline-block;
+    background:none;
+    vertical-align:middle
+}
+
+#x{
+    width:100%;
+    position:relative;
+    z-index:-12;
+    display:inline-block
+}
+
+#animated{
+    margin-left:10px; 
+    margin-right: 10px; 
+    height:80px; 
+    -webkit-transition: -webkit-transform 500ms ease-out;    
+}	
+
+#tymsg {
+    height: 28px;
+    text-align:center; 
+    font-size:24px; 
+    color:#F4F4F5;
+    text-shadow: 0 0 2px rgba(0,0,0,1);
+}
+
+#donorname {
+    height: 50px;
+    text-align:center; 
+    color:#F4F4F5;
+    text-shadow: 0 0 2px rgba(0,0,0,1);
+}
+
+.stat-heading{
+    font-size:24px; 
+    color:#F4F4F5;
+    text-shadow: 0 0 2px rgba(0,0,0,1);
+}
+
+.stat-data{
+    text-align: center; 
+    font-size:20px; 
+    color:#F4F4F5;
+    text-shadow: 0 0 2px rgba(0,0,0,1);
+}
