@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "description": "Real time web chat",
   "dependencies": {
-    "socket.io": "latest",
-    "express": "latest",
-    "jade": "latest",
+    "socket.io": "~0.9.16",
+    "express": "~3.5.0",
+    "jade": "~1.3.0",
     "jsdom": "~0.10.2"
   },
   "author": "developer"
