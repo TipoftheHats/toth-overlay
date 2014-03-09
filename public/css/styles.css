@@ -14,7 +14,7 @@ body {
     padding: 0px;
     margin: 0px;
 	background: none;
-	background:url('../img/hud_test_image2.png');
+	background:url('../img/hud_test_image.png');
     background-size: 1280px 720px;
     background-repeat: no-repeat;
 }
@@ -437,8 +437,8 @@ body {
     text-align: left;
 }
 
-#leftroster > div, #rightroster > div, #classicon > div {
-    background-color: #f4f4f5;
+#leftroster > div, #rightroster > div, #classicon > div{
+  background-color: #f4f4f5;
 }
 
 #leftroster > div {
@@ -451,11 +451,59 @@ body {
     left: -100%;
 }
 
+.lr_grad_init:before {
+  position: absolute;
+  content: '';
+  background-image: -webkit-linear-gradient(right, rgba(255,205,40,0) 25%, #FFCD28 95%);
+  background-size: 936px 1px; 
+  background-position-x: 234px;
+  -webkit-transition: background 0.5s linear;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+}
+
+.lr_grad_left:before {
+  background-position-x: -702px;
+}
+
+.rr_grad_init:before {
+  position: absolute;
+  content: '';
+  background-image: -webkit-linear-gradient(left, rgba(255,205,40,0) 25%, #FFCD28 95%);
+  background-size: 936px 1px; 
+  background-position-x: 0px;
+  -webkit-transition: background 0.5s linear;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+}
+
+.rr_grad_right:before {
+  background-position-x: 936px;
+}
+
+
+.cs_grad_init:before {
+  position: absolute;
+  content: '';
+  background-image: -webkit-linear-gradient(top, rgba(255,205,40,0) 25%, #FFCD28 95%);
+  background-size: 1px 1296px; 
+  background-position-y: 0px;
+  -webkit-transition: background 0.75s linear;
+  width: 36px;
+  height: 100%;
+}
+
+.cs_grad_down:before {
+  background-position-y: 1296px;
+}
+
 .classicon {
-    height: 36px;
-    width: 36px;
-    background-size: 100% auto;
-    background-image: url("../img/icons.png"); 
+  height: 36px;
+  width: 36px;
+  background-size: 100% auto;
+  background-image: url("../img/icons.png"); 
 }
 
 .row {

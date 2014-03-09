@@ -205,13 +205,13 @@ $(document).ready(function (){
     }
 	
 	function unbanCard(data) {
-        if(data.content) {
+    if(data.content) {
 			var msgParsed = JSON.parse(data.content);
 			if(msgParsed.player) {	
 				$("#"+msgParsed.player).css('-webkit-filter','brightness(1.0)');
 			}
-        }        
-    }
+    }        
+  }
 	
 	function pickPlayer(data) {
 		if(data.content) {

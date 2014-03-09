@@ -338,14 +338,29 @@ $(document).ready(function () {
       '-webkit-mask-size': '100% 100%'
     }, duration, 'linear');
     
+    $('#classicon').addClass('cs_grad_down');
+    
     // shoot out!
     for (var j = 1; j <= rosterSize; j++) {
       var step = duration / rosterSize;
-      $('#leftroster > div:nth-child(' + j + '), #rightroster > div:nth-child(' + j + ')')
+      $('#leftroster > div:nth-child(' + j + ')')
         .delay(step * j)
-        .transition({
-          'left': '0%' 
-        }, duration, 'ease-out');
+        .queue(function( nxt ) {
+          $(this).addClass('lr_grad_left');
+          $(this).transition({
+            'left': '0%',
+          }, duration, 'ease-out');
+          nxt(); // continue the queue
+        });
+      $('#rightroster > div:nth-child(' + j + ')')
+        .delay(step * j)
+        .queue(function( nxt ) {
+          $(this).addClass('rr_grad_right');
+          $(this).transition({
+            'left': '0%',
+          }, duration, 'ease-out');
+          nxt(); // continue the queue
+        }); 
     }
   }
 
@@ -356,9 +371,9 @@ $(document).ready(function () {
       rightroster = '';
 
     for (var i = 0; i < rosterSize; i++) {
-      leftroster += '<div class="leftroster">' + redRoster[i] + '</div>';
+      leftroster += '<div class="leftroster lr_grad_init">' + redRoster[i] + '</div>';
       classicon += '<div class="classicon"></div>';
-      rightroster += '<div class="rightroster">' + bluRoster[i] + '</div>';
+      rightroster += '<div class="rightroster rr_grad_init">' + bluRoster[i] + '</div>';
     }
 
     $('#rosterheader').html(
@@ -407,8 +422,10 @@ $(document).ready(function () {
         '-webkit-mask-size': '100% 0%'
       }, duration, 'linear');
     
+    $('#classicon').removeClass('cs_grad_down');
+    
     // shoot in!
-    for (var j = 1; j <= rosterSize; j++) {
+    /*for (var j = 1; j <= rosterSize; j++) {
       $('#leftroster > div:nth-child(' + j + ')')
         .delay(step * (rosterSize - j))
         .transition({
@@ -419,6 +436,27 @@ $(document).ready(function () {
         .transition({
           'left': '-100%' 
         }, duration, 'ease-out');
+    }*/
+    
+    for (var j = 1; j <= rosterSize; j++) {
+      $('#leftroster > div:nth-child(' + j + ')')
+        .delay(step * (rosterSize - j))
+        .queue(function( nxt ) {
+          $(this).removeClass('lr_grad_left');
+          $(this).transition({
+            'left': '100%',
+          }, duration, 'ease-out');
+          nxt(); // continue the queue
+        });
+      $('#rightroster > div:nth-child(' + j + ')')
+        .delay(step * (rosterSize - j))
+        .queue(function( nxt ) {
+          $(this).removeClass('rr_grad_right');
+          $(this).transition({
+            'left': '-100%',
+          }, duration, 'ease-out');
+          nxt(); // continue the queue
+        }); 
     }
   }
 });
