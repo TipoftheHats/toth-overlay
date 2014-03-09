@@ -331,7 +331,10 @@ $(document).ready(function () {
 
     // "Barn door wipe" transition
     var duration = 324;
-    $('#rosterheader, #rosterbody').transition({
+    $('#rosterheader').transition({
+      '-webkit-mask-size': '100% 100%'
+    }, duration, 'ease-out');
+    $('#rosterbody').transition({
       '-webkit-mask-size': '100% 100%'
     }, duration, 'linear');
     
@@ -397,7 +400,7 @@ $(document).ready(function () {
       .delay(step * rosterSize)
       .transition({
         '-webkit-mask-size': '0% 100%'
-      }, duration, 'linear');
+      }, duration + (step * 2), 'ease-out');
     $('#rosterbody')
       .delay(duration)
       .transition({
