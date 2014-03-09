@@ -398,19 +398,25 @@ body {
     position:absolute;
     left: 50%;
     top: 50%;
-    width: 19.38em;
+    width: 504px;
 	overflow: hidden;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%,-50%);
     white-space: nowrap;
-    /* animate on -webkit-mask-size for a "Barn door wipe" */
-    -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;
-    -webkit-mask-size: 0% 100%;
 }
 
 #rosterheader {
     background-color: #e7501e;
     color: #f4f4f5;
+    /* animate on -webkit-mask-size for a "Barn door wipe" */
+    -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;
+    -webkit-mask-size: 0% 100%;
+}
+
+#rosterbody {
+    /* animate on -webkit-mask-size for a "Barn door wipe" */
+    -webkit-mask: -webkit-linear-gradient(top, black, black) no-repeat center top;
+    -webkit-mask-size: 100% 0%;
 }
 
 #leftroster, #rightroster, #classicon {
@@ -419,15 +425,14 @@ body {
 
 #leftroster, #rightroster {
     width: 9em;
+    vertical-align: top;
 }
 
 #leftroster {
-    float: right;
     text-align: right;
 }
 
 #rightroster {
-    float: left;
     text-align: left;
 }
 

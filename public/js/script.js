@@ -321,7 +321,7 @@ $(document).ready(function () {
     updateRosters(data);
 
     // "Barn door wipe" transition
-    $('#rostercontainer').transition({
+    $('#rosterheader, #rosterbody').transition({
       '-webkit-mask-size': '100% 100%'
     }, 2000, 'linear');
   }
