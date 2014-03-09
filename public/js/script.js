@@ -58,6 +58,9 @@ $(document).ready(function () {
       case 'showrosters':
         showRosters(data);
         break;
+      case 'hiderosters':
+        hideRosters(data);
+        break;
     }
   });
 
@@ -313,30 +316,38 @@ $(document).ready(function () {
   //*----- ROSTERS -----*//
 
   function showRosters (data) {
-    if (!data) {
-      return;
-    }
-
-    // plug the info from the control panel into the display
-    updateRosters(data);
-
-    // "Barn door wipe" transition
-    $('#rosterheader, #rosterbody').transition({
-      '-webkit-mask-size': '100% 100%'
-    }, 2000, 'linear');
-  }
-
-  function updateRosters (data) {
     var msgParsed = JSON.parse(data.content);
     if (!msgParsed.redRoster || !msgParsed.bluRoster) {
       console.error("[updateRosters] Could not parse roster data!");
       return;
     }
-
-    // show player names
+    
     var redRoster = msgParsed.redRoster;
     var bluRoster = msgParsed.bluRoster;
     var rosterSize = Object.keys(redRoster).length;
+
+    // plug the info from the control panel into the display
+    updateRosters(redRoster, bluRoster, rosterSize);
+
+    // "Barn door wipe" transition
+    var duration = 324;
+    $('#rosterheader, #rosterbody').transition({
+      '-webkit-mask-size': '100% 100%'
+    }, duration, 'linear');
+    
+    // shoot out!
+    for (var j = 1; j <= rosterSize; j++) {
+      var step = duration / rosterSize;
+      $('#leftroster > div:nth-child(' + j + '), #rightroster > div:nth-child(' + j + ')')
+        .delay(step * j)
+        .transition({
+          'left': '0%' 
+        }, duration, 'ease-out');
+    }
+  }
+
+  function updateRosters (redRoster, bluRoster, rosterSize) {
+    // show player names
     var leftroster = '',
       classicon = '',
       rightroster = '';
@@ -370,9 +381,41 @@ $(document).ready(function () {
       //medic
       $('#classicon > div:nth-child(6)').css('background-position-y', -36 * 7);
     } else { // highlander
-      for (var j = 1; j <= rosterSize + 1; j++) {
+      for (var j = 1; j <= rosterSize; j++) {
         $('#classicon > div:nth-child(' + j + ')').css('background-position-y', -36 * (j));
       }
+    }
+  }
+  
+  function hideRosters(data) {
+    var rosterSize = parseInt(data.content);
+    var duration = 324;
+    var step = duration / rosterSize;
+    
+    // "Barn door wipe" transition
+    $('#rosterheader')
+      .delay(step * rosterSize)
+      .transition({
+        '-webkit-mask-size': '0% 100%'
+      }, duration, 'linear');
+    $('#rosterbody')
+      .delay(duration)
+      .transition({
+        '-webkit-mask-size': '100% 0%'
+      }, duration, 'linear');
+    
+    // shoot in!
+    for (var j = 1; j <= rosterSize; j++) {
+      $('#leftroster > div:nth-child(' + j + ')')
+        .delay(step * (rosterSize - j))
+        .transition({
+          'left': '100%' 
+        }, duration, 'ease-out');
+      $('#rightroster > div:nth-child(' + j + ')')
+        .delay(step * (rosterSize - j))
+        .transition({
+          'left': '-100%' 
+        }, duration, 'ease-out');
     }
   }
 });

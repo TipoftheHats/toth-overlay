@@ -426,6 +426,7 @@ body {
 #leftroster, #rightroster {
     width: 9em;
     vertical-align: top;
+    overflow: hidden;
 }
 
 #leftroster {
@@ -438,6 +439,16 @@ body {
 
 #leftroster > div, #rightroster > div, #classicon > div {
     background-color: #f4f4f5;
+}
+
+#leftroster > div {
+    position: relative;
+    left: 100%;
+}
+
+#rightroster > div {
+    position: relative;
+    left: -100%;
 }
 
 .classicon {

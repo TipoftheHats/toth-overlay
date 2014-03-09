@@ -205,7 +205,7 @@
             sendMessage(socket, 'showrosters', rosterJSON);
         }
 
-        hideRostersButton.onclick = function(){ sendMessage(socket, 'hideroster', '') }  
+        hideRostersButton.onclick = function(){ sendMessage(socket, 'hiderosters', $("input:radio[name=rostersize]:checked").val()) }  
         
         swapRostersButton.onclick = function(){ swapRosters(); }        
         function swapRosters() {            
