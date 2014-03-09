@@ -320,9 +320,9 @@ $(document).ready(function () {
     // plug the info from the control panel into the display
     updateRosters(data);
 
-    // animate it and make it look pretty
-    $('#rosterwrapper').transition({
-      'width': '504px'
+    // "Barn door wipe" transition
+    $('#rostercontainer').transition({
+      '-webkit-mask-size': '100% 100%'
     }, 2000, 'linear');
   }
 
