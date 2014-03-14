@@ -26,7 +26,7 @@ app.post('/postdonation', function(request, response){
 
 app.get('/getbracket', function(req, res){
 	var bracketId = req.query.id;
-	var domain = "http://challonge.com/";
+	var domain = "http://tipofthehats.challonge.com/";
 	var page = domain+bracketId;
 	jsdom.env(
 			page,
