@@ -51,14 +51,14 @@ body {
 #linktitle {
     overflow:hidden;
     color: #f4f4f5; 
-    background: #e7501e;
+    background: #F37424;
     margin: 2px 30px;
     vertical-align: middle;
 }
 
 #linktitlecontainer {
     overflow:hidden;
-    background: #e7501e;
+    background: #F37424;
     height: 40px;
 }
 
@@ -406,7 +406,7 @@ body {
 }
 
 #rosterheader {
-    background-color: #e7501e;
+    background-color: #F37424;
     color: #f4f4f5;
     /* animate on -webkit-mask-size for a "Barn door wipe" */
     -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;

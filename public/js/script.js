@@ -13,7 +13,10 @@ $(document).ready(function () {
         "socialmedia_in-v2",
         "socialmedia_out-v2",
         "transition_in",
-        "transition_out"
+        "transition_out",
+        "roster_in_9",
+        "roster_in_6",
+        "roster_out"
       ],
       path: "snd/",       // set path to sounds
       multiPlay: true,    // can play multiple sounds at once
@@ -162,7 +165,7 @@ $(document).ready(function () {
 
       $('#alerttext').text('' + data.content + '');
       $('#alert').css('width', '18.5em');
-      $('#alerttitlecontainer').css('background-color', '#e7501e');
+      $('#alerttitlecontainer').css('background-color', '#F37424');
       setTimeout(function () {
         $('#exclamation').css('opacity', '100');
       }, 100);
@@ -200,7 +203,7 @@ $(document).ready(function () {
       $('#lowerthirdtitle').text('' + msgParsed.title.toUpperCase() + '');
       $('#lowerthirdtext').text('' + msgParsed.text + '');
 
-      $('#lowerthirdtitlecontainer').css('background-color', '#e7501e')
+      $('#lowerthirdtitlecontainer').css('background-color', '#F37424')
         .transition({
           'left': '0%'
         }, 600, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
@@ -329,6 +332,9 @@ $(document).ready(function () {
     // plug the info from the control panel into the display
     updateRosters(redRoster, bluRoster, rosterSize);
 
+    // play sound
+    $.ionSound.play("roster_in_" + rosterSize);
+    
     // "Barn door wipe" transition
     var duration = 324;
     $('#rosterheader').transition({
@@ -410,34 +416,12 @@ $(document).ready(function () {
     var duration = 324;
     var step = duration / rosterSize;
     
-    // "Barn door wipe" transition
-    $('#rosterheader')
-      .delay(step * rosterSize)
-      .transition({
-        '-webkit-mask-size': '0% 100%'
-      }, duration + (step * 2), 'ease-out');
-    $('#rosterbody')
-      .delay(duration)
-      .transition({
-        '-webkit-mask-size': '100% 0%'
-      }, duration, 'linear');
-    
-    $('#classicon').removeClass('cs_grad_down');
+    // play sound
+    setTimeout(function () {
+      $.ionSound.play("roster_out");
+    }, step);
     
     // shoot in!
-    /*for (var j = 1; j <= rosterSize; j++) {
-      $('#leftroster > div:nth-child(' + j + ')')
-        .delay(step * (rosterSize - j))
-        .transition({
-          'left': '100%' 
-        }, duration, 'ease-out');
-      $('#rightroster > div:nth-child(' + j + ')')
-        .delay(step * (rosterSize - j))
-        .transition({
-          'left': '-100%' 
-        }, duration, 'ease-out');
-    }*/
-    
     for (var j = 1; j <= rosterSize; j++) {
       $('#leftroster > div:nth-child(' + j + ')')
         .delay(step * (rosterSize - j))
@@ -458,5 +442,19 @@ $(document).ready(function () {
           nxt(); // continue the queue
         }); 
     }
+    
+    // "Barn door wipe" transition
+    $('#rosterheader')
+      .delay(step * rosterSize)
+      .transition({
+        '-webkit-mask-size': '0% 100%'
+      }, duration + (step * 2), 'ease-out');
+    $('#rosterbody')
+      .delay(duration)
+      .transition({
+        '-webkit-mask-size': '100% 0%'
+      }, duration, 'linear');
+    
+    $('#classicon').removeClass('cs_grad_down');
   }
 });
