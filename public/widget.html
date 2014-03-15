@@ -151,10 +151,10 @@
         
         function changeRosterSize() {
             rosterSize = $("input:radio[name=rostersize]:checked").val();
-            var content = '<div class="titlerow row">' +
-                          '<div class="rowtitle team1 cell red">Team 1</div>' +
+            var content = '<div class="rosterrow row">' +
+                          '<div class="cell redteam"><input></div>' +
                           '<div class="classicon"></div>' +
-                          '<div class="rowtitle team2 cell blue">Team 2</div></div>';
+                          '<div class="cell bluteam"><input></div></div>';
             
             for (var i = 0; i < rosterSize; i++) {
                 content += '<div class="rosterrow row">' +
@@ -194,6 +194,8 @@
         function prepRosters() {
             var redRoster = {};
             var bluRoster = {};
+            var teamNames = { 'red': $('#rostertable > div:nth-child(1) > div.cell.redteam > input').val()
+                            , 'blu': $('#rostertable > div:nth-child(1) > div.cell.bluteam > input').val() };
             
             //start at 2 to compensate for table header row
             for (var i = 2; i < rosterSize+2; i++) {
@@ -201,7 +203,7 @@
                 bluRoster[i-2] = $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val();
             }
             
-            var rosterJSON = JSON.stringify({'redRoster': redRoster, 'bluRoster': bluRoster});
+            var rosterJSON = JSON.stringify({'redRoster': redRoster, 'bluRoster': bluRoster, 'teamNames': teamNames});
             sendMessage(socket, 'showrosters', rosterJSON);
         }
 

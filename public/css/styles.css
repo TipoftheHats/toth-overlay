@@ -516,6 +516,7 @@ body {
 
 .leftheader.cell, .rightheader.cell {
     width: 9em;
+    padding: 0 4px;
 }
 
 .leftheader.cell {

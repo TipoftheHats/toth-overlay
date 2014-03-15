@@ -320,17 +320,18 @@ $(document).ready(function () {
 
   function showRosters (data) {
     var msgParsed = JSON.parse(data.content);
-    if (!msgParsed.redRoster || !msgParsed.bluRoster) {
+    if (!msgParsed.redRoster || !msgParsed.bluRoster || !msgParsed.teamNames) {
       console.error("[updateRosters] Could not parse roster data!");
       return;
     }
     
     var redRoster = msgParsed.redRoster;
     var bluRoster = msgParsed.bluRoster;
+    var teamNames = msgParsed.teamNames;
     var rosterSize = Object.keys(redRoster).length;
 
     // plug the info from the control panel into the display
-    updateRosters(redRoster, bluRoster, rosterSize);
+    updateRosters(redRoster, bluRoster, teamNames, rosterSize);
 
     // play sound
     $.ionSound.play("roster_in_" + rosterSize);
@@ -370,7 +371,7 @@ $(document).ready(function () {
     }
   }
 
-  function updateRosters (redRoster, bluRoster, rosterSize) {
+  function updateRosters (redRoster, bluRoster, teamNames, rosterSize) {
     // show player names
     var leftroster = '',
       classicon = '',
@@ -383,9 +384,9 @@ $(document).ready(function () {
     }
 
     $('#rosterheader').html(
-      [ '<div class="leftheader cell">Team 1</div>',
+      [ '<div class="leftheader cell">' + teamNames.red + '</div>',
         '<div class="classicon cell"></div>',
-        '<div class="rightheader cell">Team 2</div>'
+        '<div class="rightheader cell">' + teamNames.blu + '</div>'
       ].join(''));
     $('#leftroster').html(leftroster);
     $('#classicon').html(classicon);
