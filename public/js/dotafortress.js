@@ -4,7 +4,12 @@ function sendMessage(socket, commandstring, meta) {
 
 //execute after the DOM has loaded
 $(document).ready(function (){
-	//load Ion.Sound plugin
+	//load pURL plugin
+	$.getScript("js/purl.js", function() {
+		console.log("pURL loaded and executed.");
+  });
+  
+  //load Ion.Sound plugin
 	$.getScript("js/ion.sound.min.js", function() {
 
 		console.log("Ion.Sound loaded and executed.");
@@ -369,10 +374,14 @@ $(document).ready(function (){
 });
 
 // execute after all of the graphics have loaded
-$(window).load(function() {
-  console.log("all done, chief. raising shutters.");
-  var messages = [];
-  var hostname = 'http://'+document.location.hostname+':1337';
-  var socket = io.connect(hostname);
-  sendMessage(socket, 'raiseshutters', '');
+$(window).load(function() {  
+  console.log("[DotaFortress] Page Loaded");
+  var url = $.url();
+  if (url.param('raiseshutters') == 'true') {
+    console.log("[DotaFortress] RaiseShutters is set to 'true'. Sending 'raiseshutters' message.");
+    var messages = [];
+    var hostname = 'http://'+document.location.hostname+':1337';
+    var socket = io.connect(hostname);
+    sendMessage(socket, 'raiseshutters', '');
+  }
 });
