@@ -281,7 +281,7 @@ $(document).ready(function () {
         }, 500, 'linear')
         .transition({
           'background-position-y': '0px'
-        }, 500, 'ease-out');
+        }, 300, 'ease-in');
     }
   }
 
@@ -295,10 +295,10 @@ $(document).ready(function () {
       $('#shutter' + i).delay(i * 50)
         .transition({
           'background-position-y': '-720px'
-        }, 500, 'linear')
+        }, 300, 'ease-out')
         .transition({
           'top': '-100%'
-        }, 500, 'ease-out');
+        }, 500, 'linear');
     }
   }
 

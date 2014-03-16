@@ -16,37 +16,26 @@
 
   //*----- LINKS -----*//
   
-  var showlinksButton = document.getElementById("showlinks");
-  var hidelinksButton = document.getElementById("hidelinks");
-  var pulselinks10Button = document.getElementById("pulselinks10");
-  var pulselinks30Button = document.getElementById("pulselinks30");
-  var pulselinks60Button = document.getElementById("pulselinks60");
-  
-  showlinksButton.onclick = function(){ sendMessage(socket, 'showlinks', ''); }
-  hidelinksButton.onclick = function(){ sendMessage(socket, 'hidelinks', ''); }
-  pulselinks10Button.onclick = function(){ sendMessage(socket, 'pulselinks', '10'); }
-  pulselinks30Button.onclick = function(){ sendMessage(socket, 'pulselinks', '30'); }
-  pulselinks60Button.onclick = function(){ sendMessage(socket, 'pulselinks', '60'); }
+  $('#showlinks').click(function() { sendMessage(socket, 'showlinks', ''); });
+  $('#hidelinks').click(function() { sendMessage(socket, 'hidelinks', ''); });
+  $('#pulselinks10').click(function() { sendMessage(socket, 'pulselinks', '10'); });
+  $('#pulselinks30').click(function() { sendMessage(socket, 'pulselinks', '30'); });
+  $('#pulselinks60').click(function() { sendMessage(socket, 'pulselinks', '60'); });
         
   //*----- ALERT -----*//
-  
-  var sendAlertButton = document.getElementById("sendalert");
-  var alertMessage = document.getElementById("alertmessage");
-      
-  sendAlertButton.onclick = function(){ sendMessage(socket, 'showalert', alertMessage.value); }	
+
+  $('#sendalert').click(function() { sendMessage(socket, 'showalert', $('#alertmessage').val()); });
 		
-  //*----- Lo3rd -----*//
+  //*----- Lo3rd -----*//  
   
-  var showlowerthirdButton = document.getElementById("showlowerthird");
-  var hidelowerthirdButton = document.getElementById("hidelowerthird");
-  var pulselowerthird10Button = document.getElementById("pulselowerthird10");
-  var pulselowerthird30Button = document.getElementById("pulselowerthird30");
-  var pulselowerthird60Button = document.getElementById("pulselowerthird60");
-  var lowerthirdTitle = document.getElementById("lowerthirdtitle");
-  var lowerthirdText = document.getElementById("lowerthirdtext");
-      
+  $('#showlowerthird').click(function() { prepLowerThird(0); });
+  $('#hidelowerthird').click(function() { sendMessage(socket, 'hidelowerthird', ''); });
+  $('#pulselowerthird10').click(function() { prepLowerThird(10); });
+  $('#pulselowerthird30').click(function() { prepLowerThird(30); });
+  $('#pulselowerthird60').click(function() { prepLowerThird(60); });
+  
   function prepLowerThird(number) {
-    var lowerthird = {'title': lowerthirdTitle.value, 'text': lowerthirdText.value, 'duration': number};
+    var lowerthird = {'title': $('#lowerthirdtitle').val(), 'text': $('#lowerthirdtext').val(), 'duration': number};
     var lowerthirdJSON = JSON.stringify(lowerthird);
     
     if (number > 0)
@@ -54,25 +43,13 @@
     else
       sendMessage(socket, 'showlowerthird', lowerthirdJSON);
   }
-  
-  showlowerthirdButton.onclick =  function(){ prepLowerThird(0); }
-  hidelowerthirdButton.onclick = function(){ sendMessage(socket, 'hidelowerthird', ''); }
-  pulselowerthird10Button.onclick =  function(){ prepLowerThird(10); }
-  pulselowerthird30Button.onclick =  function(){ prepLowerThird(30); }
-  pulselowerthird60Button.onclick =  function(){ prepLowerThird(60); }
 		
   //*----- SCENE -----*//
   
-  var sceneButton = document.getElementById('scenebutton');
-  var sceneDropButton = document.getElementById('scenedropbutton');
-  var sceneName = document.getElementById('scenename');
-  var dropShuttersButton = document.getElementById('dropshutters');
-  var raiseShuttersButton = document.getElementById('raiseshutters');
-  
-  sceneButton.onclick = function(){ prepSceneChange(sceneName.value, true); }
-  sceneDropButton.onclick = function(){ prepSceneChange(sceneName.value); }		
-  dropShuttersButton.onclick = function(){ sendMessage(socket, 'dropshutters', ''); }
-  raiseShuttersButton.onclick = function(){ sendMessage(socket, 'raiseshutters', ''); }
+  $('#scenebutton').click(function() { prepSceneChange($('#scenename').val(), true); });
+  $('#scenedropbutton').click(function() { prepSceneChange(sceneName.value); });
+  $('#dropshutters').click(function() { sendMessage(socket, 'dropshutters', ''); });
+  $('#raiseshutters').click(function() { sendMessage(socket, 'raiseshutters', ''); });
   
   var obsRemoteURL = 'ws://localhost:4444';
   var sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
@@ -120,47 +97,57 @@
     }	
 		
 		//*----- STATS & BRACKET -----*//
-        
-    var statsID = document.getElementById('statsid');
-		var showStatsButton = document.getElementById('showstatsbutton');
-    var bracketID = document.getElementById('bracketid');
-		var showBracketButton = document.getElementById('showbracketbutton');
-		
-		showStatsButton.onclick = function(){ sendMessage(socket, 'showstats', statsID.value); }	
-		showBracketButton.onclick = function(){ sendMessage(socket,'showbracket', bracketID.value); }
+    
+    $('#showstatsbutton').click(function() { sendMessage(socket, 'showstats', $('#statsid').val()); });
+    $('#showbracketbutton').click(function() { sendMessage(socket,'showbracket', $('#bracketid').val()); });
+    
     
     //*----- SCOREBOARD -----*//
     
-    var updateScoresButton = document.getElementById('updatescores');
-    var swapTeamColorsButton = document.getElementById('swapteamcolors');
-    
-    updateScoresButton.onclick = function(){ prepUpdateScores(); }
-    swapTeamColorsButton.onclick = function() { sendMessage(socket, 'swapteamcolors'); }
+    $('#updatescores').click(function() { prepUpdateScores(); });
+    $('#swapteamcolors').click(function() { sendMessage(socket, 'swapteamcolors'); });
    
     function prepUpdateScores() {
       var mapNum = $("input:radio[name=map]:checked").val();
-      var mapNames = {"map1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(1) > input').val(),
-                      "map2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(1) > input').val(),
-                      "map3": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(1) > input').val()};
-      var mapScores = {"map1": 
-                        {"team1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(2) > input').val(),
-                         "team2": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(3) > input').val()},
-                       "map2": 
-                        {"team1": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(2) > input').val(),
-                         "team2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(3) > input').val()},
-                       "map3": 
-                        {"team1": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(2) > input').val(),
-                         "team2": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(3) > input').val()}};                            
-      var teamNames = {"team1": $('#team1name').val(),
-                       "team2": $('#team2name').val()};
+      var mapNames = {
+          "map1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(1) > input').val(),
+          "map2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(1) > input').val(),
+          "map3": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(1) > input').val()
+      };
+      var mapScores = {
+        "map1": 
+          {
+            "team1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(2) > input').val(),
+            "team2": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(3) > input').val()
+          },
+        "map2": 
+          {
+            "team1": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(2) > input').val(),
+            "team2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(3) > input').val()
+          },
+        "map3": 
+          {
+            "team1": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(2) > input').val(),
+            "team2": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(3) > input').val()
+          }
+      };                            
+      var teamNames = {
+        "team1": $('#team1name').val(),
+        "team2": $('#team2name').val()
+      };
                       
       var mapNamesJSON = JSON.stringify(mapNames);
       var mapScoresJSON = JSON.stringify(mapScores);
       var teamNamesJSON = JSON.stringify(teamNames);
       
-      var sbData = {"mapNum": mapNum, "mapNames": mapNames, "mapScores": mapScores, "teamNames": teamNames};  
-      var sbDataJSON = JSON.stringify(sbData);
-      sendMessage(socket, 'updatescore', sbDataJSON);
+      var sbData = {
+        "mapNum": mapNum, 
+        "mapNames": mapNames, 
+        "mapScores": mapScores, 
+        "teamNames": teamNames
+      };  
+      
+      sendMessage(socket, 'updatescore', JSON.stringify(sbData));
     }  
 
     //*----- ROSTERS -----*//
@@ -206,11 +193,10 @@
     //initalize
     changeRosterSize();
     
-    var showRostersButton = document.getElementById('showrosters');
-    var hideRostersButton = document.getElementById('hiderosters');
-    var swapRostersButton = document.getElementById('swaprosters')
-    
-    showRostersButton.onclick = function(){ prepRosters(); }        
+    $('#showrosters').click(function() { prepRosters(); });
+    $('#hiderosters').click(function() { sendMessage(socket, 'hiderosters', $("input:radio[name=rostersize]:checked").val()); });
+    $('#swaprosters').click(function() { swapRosters(); });
+      
     function prepRosters() {
       var redRoster = {};
       var bluRoster = {};
@@ -226,13 +212,9 @@
       var rosterJSON = JSON.stringify({'redRoster': redRoster, 'bluRoster': bluRoster, 'teamNames': teamNames});
       sendMessage(socket, 'showrosters', rosterJSON);
     }
-
-    hideRostersButton.onclick = function(){ sendMessage(socket, 'hiderosters', $("input:radio[name=rostersize]:checked").val()) }  
-    
-    swapRostersButton.onclick = function(){ swapRosters(); }        
+      
     function swapRosters() {            
-      //start at 2 to compensate for table header row
-      for (var i = 2; i < rosterSize+2; i++) {
+      for (var i = 1; i < rosterSize+2; i++) {
         var temp;
         temp = $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val();
         $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val($('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val());
