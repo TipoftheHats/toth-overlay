@@ -27,6 +27,7 @@ body {
   background-size: 1280px 720px;
   background-repeat: no-repeat;
   position: absolute;
+  z-index: 0;
 }
 
 p {
