@@ -1,3 +1,7 @@
+function sendMessage(socket, commandstring, meta) {
+  socket.emit('send', {message: commandstring, content: meta });
+}
+
 //execute after the DOM has loaded
 $(document).ready(function (){
 	//load Ion.Sound plugin
@@ -366,5 +370,9 @@ $(document).ready(function (){
 
 // execute after all of the graphics have loaded
 $(window).load(function() {
-   console.log("all done, chief");
+  console.log("all done, chief. raising shutters.");
+  var messages = [];
+  var hostname = 'http://'+document.location.hostname+':1337';
+  var socket = io.connect(hostname);
+  sendMessage(socket, 'raiseshutters', '');
 });

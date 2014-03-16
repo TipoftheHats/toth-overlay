@@ -58,6 +58,12 @@ $(document).ready(function () {
       case 'transition':
         playTransition();
         break;
+      case 'dropshutters':
+        dropShutters();
+        break;
+      case 'raiseshutters':
+        raiseShutters();
+        break;
       case 'showrosters':
         showRosters(data);
         break;
@@ -252,41 +258,42 @@ $(document).ready(function () {
   }
 
   function playTransition () {
+    dropShutters();
+    setTimeout(raiseShutters, 1300);
+  }
+  
+  function dropShutters () {
     // play sound
     setTimeout(function () {
       $.ionSound.play("transition_in");
     }, 50);
-
+  
     for (var i = 1; i <= 8; i++) {
-      setTimeout(dropShutters, (i * 50));
+      var newColor = shadeColor("#fdfdfe", -15 * i);
+      $('#shutter' + i).delay(i * 50)
+                       .data("color", newColor)
+                       .queue(function( nxt ) {
+                         $(this).slideDown(500);
+                         $(this).css('background-color', $(this).data("color"));
+                         nxt(); // continue the queue 
+                       });
     }
-
-    var count = 1;
-
-    function dropShutters () {
-      $('#shutter' + count).slideDown(500);
-      var newColor = shadeColor("#fdfdfe", -15 * (count - 1));
-      $('#shutter' + count).css('background-color', newColor);
-      count++;
-    }
-
-    setTimeout(openDoor, 1300);
   }
 
-  function openDoor () {
+  function raiseShutters () {
     // play sound
     setTimeout(function () {
       $.ionSound.play("transition_out");
     }, 50);
 
     for (var i = 1; i <= 8; i++) {
-      setTimeout(raiseShutters, (i * 50));
+      setTimeout(raisePanel, (i * 50));
     }
     setTimeout(resetColor, 1300);
 
     var count = 1;
 
-    function raiseShutters () {
+    function raisePanel () {
       $('#shutter' + count).slideUp(500);
       count++;
     }
@@ -312,7 +319,7 @@ $(document).ready(function () {
 
     var newColorInt = (R << 16) + (G << 8) + (B);
     var newColorStr = "#" + newColorInt.toString(16);
-
+    
     return newColorStr;
   }
 

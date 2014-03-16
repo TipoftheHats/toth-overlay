@@ -291,90 +291,55 @@ body {
 }
 
 /* ----- Transition ----- */
+.shutter {
+  width: 12.5%;
+  height: 100%;
+  -webkit-transition: background-color 0.4s linear;
+  position: absolute;
+}
 #shuttercontainer {
 	z-index: 10;
 	overflow:hidden;
-	transition: background-color 0.4s linear;
-    -webkit-transition: background-color 0.4s linear;
 	width: 100%;
 	height: 100%;
 	position: absolute;
 }
 #shutter1 {	
 	left: 0%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
+
 }
 #shutter2 {
 	left: 12.5%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 }
 #shutter3 {
-	left: 25%;	
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
-	background:url('../img/logo_slices/logo_slice1.png');
-    background-repeat: no-repeat;
+	left: 25%;
+  background:url('../img/logo_slices/logo_slice1.png');
+  background-repeat: no-repeat;
 	background-position:center;
 }
 #shutter4 {
 	left: 37.5%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 	background:url('../img/logo_slices/logo_slice2.png');
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
 	background-position:center;
 }
 #shutter5 {
 	left: 50%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 	background:url('../img/logo_slices/logo_slice3.png');
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
 	background-position:center;
 }
 #shutter6 {
 	left: 62.5%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 	background:url('../img/logo_slices/logo_slice4.png');
-    background-repeat: no-repeat;
+  background-repeat: no-repeat;
 	background-position:center;
 }
 #shutter7 {
 	left: 75%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 }
 #shutter8 {
 	left: 87.5%;
-	width: 12.5%;
-	height: inherit;	
-	transition: inherit;
-	-webkit-transition: inherit;
-	position: inherit;
 }
 
 /* ----- Rosters ----- */

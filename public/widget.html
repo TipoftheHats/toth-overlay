@@ -5,221 +5,241 @@
  <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
  <script src="/socket.io/socket.io.js"></script>
  <script>
-    function sendMessage(socket, commandstring, meta) {
-        socket.emit('send', {message: commandstring, content: meta });
-    }	
+  function sendMessage(socket, commandstring, meta) {
+    socket.emit('send', {message: commandstring, content: meta });
+  }	
 	
-    window.onload = function() {
-        var messages = [];
-        var hostname = 'http://'+document.location.hostname+':1337';
-        var socket = io.connect(hostname);
+  window.onload = function() {
+  var messages = [];
+  var hostname = 'http://'+document.location.hostname+':1337';
+  var socket = io.connect(hostname);
 
-		//*----- LINKS -----*//
-		
-        var showlinksButton = document.getElementById("showlinks");
-        var hidelinksButton = document.getElementById("hidelinks");
-        var pulselinks10Button = document.getElementById("pulselinks10");
-        var pulselinks30Button = document.getElementById("pulselinks30");
-        var pulselinks60Button = document.getElementById("pulselinks60");
+  //*----- LINKS -----*//
+  
+  var showlinksButton = document.getElementById("showlinks");
+  var hidelinksButton = document.getElementById("hidelinks");
+  var pulselinks10Button = document.getElementById("pulselinks10");
+  var pulselinks30Button = document.getElementById("pulselinks30");
+  var pulselinks60Button = document.getElementById("pulselinks60");
+  
+  showlinksButton.onclick = function(){ sendMessage(socket, 'showlinks', ''); }
+  hidelinksButton.onclick = function(){ sendMessage(socket, 'hidelinks', ''); }
+  pulselinks10Button.onclick = function(){ sendMessage(socket, 'pulselinks', '10'); }
+  pulselinks30Button.onclick = function(){ sendMessage(socket, 'pulselinks', '30'); }
+  pulselinks60Button.onclick = function(){ sendMessage(socket, 'pulselinks', '60'); }
         
-        showlinksButton.onclick = function(){ sendMessage(socket, 'showlinks', ''); }
-        hidelinksButton.onclick = function(){ sendMessage(socket, 'hidelinks', ''); }
-        pulselinks10Button.onclick = function(){ sendMessage(socket, 'pulselinks', '10'); }
-        pulselinks30Button.onclick = function(){ sendMessage(socket, 'pulselinks', '30'); }
-        pulselinks60Button.onclick = function(){ sendMessage(socket, 'pulselinks', '60'); }
+  //*----- ALERT -----*//
+  
+  var sendAlertButton = document.getElementById("sendalert");
+  var alertMessage = document.getElementById("alertmessage");
+      
+  sendAlertButton.onclick = function(){ sendMessage(socket, 'showalert', alertMessage.value); }	
+		
+  //*----- Lo3rd -----*//
+  
+  var showlowerthirdButton = document.getElementById("showlowerthird");
+  var hidelowerthirdButton = document.getElementById("hidelowerthird");
+  var pulselowerthird10Button = document.getElementById("pulselowerthird10");
+  var pulselowerthird30Button = document.getElementById("pulselowerthird30");
+  var pulselowerthird60Button = document.getElementById("pulselowerthird60");
+  var lowerthirdTitle = document.getElementById("lowerthirdtitle");
+  var lowerthirdText = document.getElementById("lowerthirdtext");
+      
+  function prepLowerThird(number) {
+    var lowerthird = {'title': lowerthirdTitle.value, 'text': lowerthirdText.value, 'duration': number};
+    var lowerthirdJSON = JSON.stringify(lowerthird);
+    
+    if (number > 0)
+      sendMessage(socket, 'pulselowerthird', lowerthirdJSON);
+    else
+      sendMessage(socket, 'showlowerthird', lowerthirdJSON);
+  }
+  
+  showlowerthirdButton.onclick =  function(){ prepLowerThird(0); }
+  hidelowerthirdButton.onclick = function(){ sendMessage(socket, 'hidelowerthird', ''); }
+  pulselowerthird10Button.onclick =  function(){ prepLowerThird(10); }
+  pulselowerthird30Button.onclick =  function(){ prepLowerThird(30); }
+  pulselowerthird60Button.onclick =  function(){ prepLowerThird(60); }
+		
+  //*----- SCENE -----*//
+  
+  var sceneButton = document.getElementById('scenebutton');
+  var sceneDropButton = document.getElementById('scenedropbutton');
+  var sceneName = document.getElementById('scenename');
+  var dropShuttersButton = document.getElementById('dropshutters');
+  var raiseShuttersButton = document.getElementById('raiseshutters');
+  
+  sceneButton.onclick = function(){ prepSceneChange(sceneName.value, true); }
+  sceneDropButton.onclick = function(){ prepSceneChange(sceneName.value); }		
+  dropShuttersButton.onclick = function(){ sendMessage(socket, 'dropshutters', ''); }
+  raiseShuttersButton.onclick = function(){ sendMessage(socket, 'raiseshutters', ''); }
+  
+  var obsRemoteURL = 'ws://localhost:4444';
+  var sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
+  
+  function checkOBSSocket() {
+    //re-open the socket if it is "CLOSED" (3) or "CLOSING" (2)
+    if (sceneSocket.readyState == 2 || sceneSocket.readyState == 3) {
+      sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
+      console.log("[SCENE] re-opening OBS socket");
+      return true;
+    }
+    
+    return false;
+  }
+  
+  function prepSceneChange(msg, autoraise) {
+      if (checkOBSSocket() == true) {
+        //the socket wasn't connected, so let's give it time to open
+        setTimeout(function(){
+          sceneSocket.send(obsJSON);
+        }, 200);
+      } else {
+        //socket is already open, do the work immediately
+        doWork();
+      }
+      
+      function doWork() {
+        //set up json request for obs scene change             
+        var obs = {"request-type": "SetCurrentScene", "scene-name": msg, "message-id": 1};
+        var obsJSON = JSON.stringify(obs);        
         
-		//*----- ALERT -----*//
-		
-        var sendAlertButton = document.getElementById("sendalert");
-        var alertMessage = document.getElementById("alertmessage");
-        
-		sendAlertButton.onclick = function(){ sendMessage(socket, 'showalert', alertMessage.value); }	
-		
-		//*----- Lo3rd -----*//
-		
-        var showlowerthirdButton = document.getElementById("showlowerthird");
-        var hidelowerthirdButton = document.getElementById("hidelowerthird");
-		var pulselowerthird10Button = document.getElementById("pulselowerthird10");
-        var pulselowerthird30Button = document.getElementById("pulselowerthird30");
-        var pulselowerthird60Button = document.getElementById("pulselowerthird60");
-		var lowerthirdTitle = document.getElementById("lowerthirdtitle");
-		var lowerthirdText = document.getElementById("lowerthirdtext");
-        
-		function prepLowerThird(number) {
-			var lowerthird = {'title': lowerthirdTitle.value, 'text': lowerthirdText.value, 'duration': number};
-			var lowerthirdJSON = JSON.stringify(lowerthird);
-			
-			if (number > 0)
-				sendMessage(socket, 'pulselowerthird', lowerthirdJSON);
-			else
-				sendMessage(socket, 'showlowerthird', lowerthirdJSON);
-		}
-		
-		showlowerthirdButton.onclick =  function(){ prepLowerThird(0); }
-		hidelowerthirdButton.onclick = function(){ sendMessage(socket, 'hidelowerthird', ''); }
-		pulselowerthird10Button.onclick =  function(){ prepLowerThird(10); }
-        pulselowerthird30Button.onclick =  function(){ prepLowerThird(30); }
-        pulselowerthird60Button.onclick =  function(){ prepLowerThird(60); }
-		
-		//*----- SCENE -----*//
-		
-        var sceneButton = document.getElementById('scenebutton');
-		var sceneName = document.getElementById('scenename');
-        
-		sceneButton.onclick = function(){ prepSceneChange(sceneName.value); }		
-		
-		var obsRemoteURL = 'ws://localhost:4444';
-		var sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
-		
-		function prepSceneChange(msg, callback){
-			//re-open the socket if it is "CLOSED" (3) or "CLOSING" (2)
-			if (sceneSocket.readyState == 2 || sceneSocket.readyState == 3) {
-				sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
-				
-				//give the socket time to connect
-				setTimeout(doWork, 200);
-				console.log("[SCENE] re-opening OBS socket");
-			} else {
-				//the socket is already open, so just do the work
-				doWork();
-			}
-			
-			function doWork() {
-				//set up json request for obs scene change             
-                var obs = {"request-type": "SetCurrentScene", "scene-name": msg, "message-id": 1};
-				var obsJSON = JSON.stringify(obs);
-				
-				//trigger transition anim in index.html
-				sendMessage(socket, 'transition', '');
-				
-				//trigger scene change in obs
-				setTimeout(function(){
-					sceneSocket.send(obsJSON);
-				}, 1000);
-			}			
-		}
+        if (autoraise) {
+          //trigger transition anim in index.html
+          sendMessage(socket, 'transition', '');
+        } else {
+          //just drop the shutters, we'll handle raising them manually
+          sendMessage(socket, 'dropshutters', '');
+        }
+
+        //trigger scene change in obs
+        setTimeout(function(){
+          sceneSocket.send(obsJSON);
+        }, 1000);        
+      }      
+    }	
 		
 		//*----- STATS & BRACKET -----*//
         
-        var statsID = document.getElementById('statsid');
+    var statsID = document.getElementById('statsid');
 		var showStatsButton = document.getElementById('showstatsbutton');
-        var bracketID = document.getElementById('bracketid');
+    var bracketID = document.getElementById('bracketid');
 		var showBracketButton = document.getElementById('showbracketbutton');
 		
 		showStatsButton.onclick = function(){ sendMessage(socket, 'showstats', statsID.value); }	
 		showBracketButton.onclick = function(){ sendMessage(socket,'showbracket', bracketID.value); }
     
-        //*----- SCOREBOARD -----*//
-        
-        var updateScoresButton = document.getElementById('updatescores');
-        var swapTeamColorsButton = document.getElementById('swapteamcolors');
-        
-        updateScoresButton.onclick = function(){ prepUpdateScores(); }
-        swapTeamColorsButton.onclick = function() { sendMessage(socket, 'swapteamcolors'); }
-       
-        function prepUpdateScores() {
-            var mapNum = $("input:radio[name=map]:checked").val();
-            var mapNames = {"map1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(1) > input').val(),
-                            "map2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(1) > input').val(),
-                            "map3": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(1) > input').val()};
-            var mapScores = {"map1": 
-                                {"team1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(2) > input').val(),
-                                 "team2": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(3) > input').val()},
-                             "map2": 
-                                {"team1": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(2) > input').val(),
-                                 "team2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(3) > input').val()},
-                             "map3": 
-                                {"team1": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(2) > input').val(),
-                                 "team2": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(3) > input').val()}};                            
-            var teamNames = {"team1": $('#team1name').val(),
-                             "team2": $('#team2name').val()};
-                            
-            var mapNamesJSON = JSON.stringify(mapNames);
-            var mapScoresJSON = JSON.stringify(mapScores);
-            var teamNamesJSON = JSON.stringify(teamNames);
-            
-            var sbData = {"mapNum": mapNum, "mapNames": mapNames, "mapScores": mapScores, "teamNames": teamNames};  
-            var sbDataJSON = JSON.stringify(sbData);
-            sendMessage(socket, 'updatescore', sbDataJSON);
-        }  
+    //*----- SCOREBOARD -----*//
+    
+    var updateScoresButton = document.getElementById('updatescores');
+    var swapTeamColorsButton = document.getElementById('swapteamcolors');
+    
+    updateScoresButton.onclick = function(){ prepUpdateScores(); }
+    swapTeamColorsButton.onclick = function() { sendMessage(socket, 'swapteamcolors'); }
+   
+    function prepUpdateScores() {
+      var mapNum = $("input:radio[name=map]:checked").val();
+      var mapNames = {"map1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(1) > input').val(),
+                      "map2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(1) > input').val(),
+                      "map3": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(1) > input').val()};
+      var mapScores = {"map1": 
+                        {"team1": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(2) > input').val(),
+                         "team2": $('#scoreboard > div.table > div:nth-child(2) > div:nth-child(3) > input').val()},
+                       "map2": 
+                        {"team1": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(2) > input').val(),
+                         "team2": $('#scoreboard > div.table > div:nth-child(3) > div:nth-child(3) > input').val()},
+                       "map3": 
+                        {"team1": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(2) > input').val(),
+                         "team2": $('#scoreboard > div.table > div:nth-child(4) > div:nth-child(3) > input').val()}};                            
+      var teamNames = {"team1": $('#team1name').val(),
+                       "team2": $('#team2name').val()};
+                      
+      var mapNamesJSON = JSON.stringify(mapNames);
+      var mapScoresJSON = JSON.stringify(mapScores);
+      var teamNamesJSON = JSON.stringify(teamNames);
+      
+      var sbData = {"mapNum": mapNum, "mapNames": mapNames, "mapScores": mapScores, "teamNames": teamNames};  
+      var sbDataJSON = JSON.stringify(sbData);
+      sendMessage(socket, 'updatescore', sbDataJSON);
+    }  
 
-        //*----- ROSTERS -----*//
-        var rosterSize = $("input:radio[name=rostersize]:checked").val();
-        $("input:radio[name=rostersize]").change(function() {
-            changeRosterSize();
-        });
-        
-        function changeRosterSize() {
-            rosterSize = $("input:radio[name=rostersize]:checked").val();
-            var content = '<div class="rosterrow row">' +
-                          '<div class="cell redteam"><input></div>' +
-                          '<div class="classicon"></div>' +
-                          '<div class="cell bluteam"><input></div></div>';
-            
-            for (var i = 0; i < rosterSize; i++) {
-                content += '<div class="rosterrow row">' +
-                           '<div class="cell"><input></div>' +
-                           '<div class="classicon"></div>' +
-                           '<div class="cell"><input></div></div>';
-                $('#rosters > div.table').html(content);
-            }
-            
-            //add class icons
-            if (rosterSize == 6) {
-                //scouts
-                $('#rostertable > div:nth-child(2) > div:nth-child(2)').css('background-position-y',-16*1);
-                $('#rostertable > div:nth-child(3) > div:nth-child(2)').css('background-position-y',-16*1);
-                //soldiers
-                $('#rostertable > div:nth-child(4) > div:nth-child(2)').css('background-position-y',-16*2);
-                $('#rostertable > div:nth-child(5) > div:nth-child(2)').css('background-position-y',-16*2);
-                //demo
-                $('#rostertable > div:nth-child(6) > div:nth-child(2)').css('background-position-y',-16*4);
-                //medic
-                $('#rostertable > div:nth-child(7) > div:nth-child(2)').css('background-position-y',-16*7);
-            } else {
-                for (var i = 1; i <= rosterSize+1; i++) {
-                    $('#rostertable > div:nth-child('+i+') > div:nth-child(2)').css('background-position-y',-16*(i-1));
-                }  
-            }
-        }
-        
-        //initalize
+    //*----- ROSTERS -----*//
+    var rosterSize = $("input:radio[name=rostersize]:checked").val();
+    $("input:radio[name=rostersize]").change(function() {
         changeRosterSize();
+    });
+    
+    function changeRosterSize() {
+      rosterSize = $("input:radio[name=rostersize]:checked").val();
+      var content = '<div class="rosterrow row">' +
+                    '<div class="cell redteam"><input></div>' +
+                    '<div class="classicon"></div>' +
+                    '<div class="cell bluteam"><input></div></div>';
+      
+      for (var i = 0; i < rosterSize; i++) {
+        content += '<div class="rosterrow row">' +
+                   '<div class="cell"><input></div>' +
+                   '<div class="classicon"></div>' +
+                   '<div class="cell"><input></div></div>';
+        $('#rosters > div.table').html(content);
+      }
+      
+      //add class icons
+      if (rosterSize == 6) {
+        //scouts
+        $('#rostertable > div:nth-child(2) > div:nth-child(2)').css('background-position-y',-16*1);
+        $('#rostertable > div:nth-child(3) > div:nth-child(2)').css('background-position-y',-16*1);
+        //soldiers
+        $('#rostertable > div:nth-child(4) > div:nth-child(2)').css('background-position-y',-16*2);
+        $('#rostertable > div:nth-child(5) > div:nth-child(2)').css('background-position-y',-16*2);
+        //demo
+        $('#rostertable > div:nth-child(6) > div:nth-child(2)').css('background-position-y',-16*4);
+        //medic
+        $('#rostertable > div:nth-child(7) > div:nth-child(2)').css('background-position-y',-16*7);
+      } else {
+        for (var i = 1; i <= rosterSize+1; i++) {
+          $('#rostertable > div:nth-child('+i+') > div:nth-child(2)').css('background-position-y',-16*(i-1));
+        }  
+      }
+    }
         
-        var showRostersButton = document.getElementById('showrosters');
-        var hideRostersButton = document.getElementById('hiderosters');
-        var swapRostersButton = document.getElementById('swaprosters')
-        
-        showRostersButton.onclick = function(){ prepRosters(); }        
-        function prepRosters() {
-            var redRoster = {};
-            var bluRoster = {};
-            var teamNames = { 'red': $('#rostertable > div:nth-child(1) > div.cell.redteam > input').val()
-                            , 'blu': $('#rostertable > div:nth-child(1) > div.cell.bluteam > input').val() };
-            
-            //start at 2 to compensate for table header row
-            for (var i = 2; i < rosterSize+2; i++) {
-                redRoster[i-2] = $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val();
-                bluRoster[i-2] = $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val();
-            }
-            
-            var rosterJSON = JSON.stringify({'redRoster': redRoster, 'bluRoster': bluRoster, 'teamNames': teamNames});
-            sendMessage(socket, 'showrosters', rosterJSON);
-        }
+    //initalize
+    changeRosterSize();
+    
+    var showRostersButton = document.getElementById('showrosters');
+    var hideRostersButton = document.getElementById('hiderosters');
+    var swapRostersButton = document.getElementById('swaprosters')
+    
+    showRostersButton.onclick = function(){ prepRosters(); }        
+    function prepRosters() {
+      var redRoster = {};
+      var bluRoster = {};
+      var teamNames = { 'red': $('#rostertable > div:nth-child(1) > div.cell.redteam > input').val()
+                      , 'blu': $('#rostertable > div:nth-child(1) > div.cell.bluteam > input').val() };
+      
+      //start at 2 to compensate for table header row
+      for (var i = 2; i < rosterSize+2; i++) {
+          redRoster[i-2] = $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val();
+          bluRoster[i-2] = $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val();
+      }
+      
+      var rosterJSON = JSON.stringify({'redRoster': redRoster, 'bluRoster': bluRoster, 'teamNames': teamNames});
+      sendMessage(socket, 'showrosters', rosterJSON);
+    }
 
-        hideRostersButton.onclick = function(){ sendMessage(socket, 'hiderosters', $("input:radio[name=rostersize]:checked").val()) }  
-        
-        swapRostersButton.onclick = function(){ swapRosters(); }        
-        function swapRosters() {            
-            //start at 2 to compensate for table header row
-            for (var i = 2; i < rosterSize+2; i++) {
-                var temp;
-                temp = $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val();
-                $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val($('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val());
-                $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val(temp);
-            }
-        }
-    }    
+    hideRostersButton.onclick = function(){ sendMessage(socket, 'hiderosters', $("input:radio[name=rostersize]:checked").val()) }  
+    
+    swapRostersButton.onclick = function(){ swapRosters(); }        
+    function swapRosters() {            
+      //start at 2 to compensate for table header row
+      for (var i = 2; i < rosterSize+2; i++) {
+        var temp;
+        temp = $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val();
+        $('#rostertable > div:nth-child('+i+') > div:nth-child(1) > input').val($('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val());
+        $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val(temp);
+      }
+    }
+  }    
  </script>
 </head>
 <body>
@@ -244,7 +264,12 @@
     <div class="panel">
         <span class="heading">Scene name:</span>
         <input type="field" id="scenename" style="width:100%" />
-        <button type="button"id="scenebutton">Change scene</button>
+        <button type="button"id="scenebutton">Change scene (auto drop/raise)</button>
+        <button type="button"id="scenedropbutton">Change scene (drop only)</button>
+        <div class="triplet"><div class="row"> 
+            <div class="button"><button type="button" id="dropshutters">Drop Shutters</button></div>
+            <div class="button"><button type="button" id="raiseshutters" class="hidebutton">Raise Shutters</button></div>
+        </div></div>
     </div>
     
     <div class="panel">
