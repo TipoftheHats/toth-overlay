@@ -20,24 +20,25 @@
     font-style: normal;
 }
 body {
-    padding: 0px;
-    margin: 0px;
-	background: none;
-	background:url('../img/bg720.png');
-    background-size: 1280px 720px;
-    background-repeat: no-repeat;
+  padding: 0px;
+  margin: 0px;
+  background: none;
+  background:url('../img/bg720.png');
+  background-size: 1280px 720px;
+  background-repeat: no-repeat;
+  position: absolute;
 }
 
 p {
 	color: white;
 	font-family: antonioregular;
-    font-size: 0.55em;
+  font-size: 0.55em;
 	top: 6.1px;
 	left: 9.4px;
 	position: relative;
 	-webkit-margin-before: 0px;
 	-webkit-margin-after: 0px;
-    
+  text-transform: uppercase;
 }
 
 #container {
@@ -119,6 +120,7 @@ p {
 
 .cardgroup {
 	margin: 10px 10px 10px 0px;
+  max-width: 410px;
 }
 
 .cardgroup2 {
@@ -183,6 +185,12 @@ p {
     background-repeat: no-repeat;
 }
 
+.portrait {
+  position: absolute;
+  top: 20px;
+  left: 8px;
+}
+
 #standards {
 	float: left;
 	position: absolute;
@@ -197,46 +205,15 @@ p {
 
 /* ----- Scout ----- */
 
-#scouts {
+#scout {
 	clear: left;
 	float: left;
 	margin-bottom: 0px;
 }
 
-.scouts-1 {
-	width: 25px;
-}
-
-#scouts-2 {
-}
-
-#scouts-3 {
-}
-
-#scouts-4 {
-}
-
-#scouts-5 {
-}
-
-#scouts-6 {
-}
-
-#scouts-7 {
-}
-
-#scouts-8 {
-}
-
-#scouts-9 {
-}
-
-#scouts-10 {
-}
-
 /* ----- Soldiers ----- */
 
-#soldiers {
+#soldier {
 	float: left;
 	margin-left: 10px;
 	margin-bottom: 0px;
@@ -244,163 +221,60 @@ p {
     left: 57px;
 }
 
-#soldiers-1 {
-}
-
-#soldiers-2 {
-}
-
-#soldiers-3 {
-}
-
-#soldiers-4 {
-}
-
-#soldiers-5 {
-}
-
-#soldiers-6 {
-}
-
-#soldiers-7 {
-}
-
-#soldiers-8 {
-}
-
-#soldiers-9 {
-}
-
-#soldiers-10 {
-}
-
 /* ----- Pyros ----- */
 
-#pyros {
+#pyro {
 	clear: right;
 	float: right;
 	height: 20%;
-}
-
-#pyros-1 {
-}
-
-#pyros-2 {
-}
-
-#pyros-3 {
 }
 
 /* ----- Heavies ----- */
 
-#heavies {
+#heavy {
 	clear: right;
 	float: right;
 	height: 20%;
 }
 
-#heavies-1 {
-}
-
-#heavies-2 {
-}
-
-#heavies-3 {
-}
 
 /* ----- Engies ----- */
 
-#engies {
+#engineer {
 	clear: right;
 	float: right;
 	height: 20%;
 }
 
-#engies-1 {
-}
-
-#engies-2 {
-}
-
-#engies-3 {
-}
 
 /* ----- Snipers ----- */
 
-#snipers {
+#sniper {
 	clear: right;
 	float: right;
 	height: 20%;
-}
-
-#snipers-1 {
-}
-
-#snipers-2 {
-}
-
-#snipers-3 {
 }
 
 /* ----- Spies ----- */
 
-#spies {
+#spy {
 	clear: right;
 	float: right;
 	height: 20%;
 }
 
-#spies-1 {
-}
-
-#spies-2 {
-}
-
-#spies-3 {
-}
-
 /* ----- Demos ----- */
 
-#demos {
+#demoman {
 	clear: left;
 	float: left;
-}
-
-#demos-1 {
-}
-
-#demos-2 {
-}
-
-#demos-3 {
-}
-
-#demos-4 {
-}
-
-#demos-5 {
 }
 
 /* ----- Medics ----- */
 
-#medics {
+#medic {
 	clear: left;
 	float: left;
-}
-
-#medics-1 {
-}
-
-#medics-2 {
-}
-
-#medics-3 {
-}
-
-#medics-4 {
-}
-
-#medics-5 {
 }
 
 /* ----- Picks N Bans ----- */
@@ -413,6 +287,7 @@ p {
 	background: -webkit-linear-gradient(top, #34393D 0%, #282C2F 30%);
 	border-top: 1px solid #4B5258;
 	border-radius: 5px;
+  z-index: -2;
 }
 
 #pnb_red {
@@ -424,7 +299,6 @@ p {
 	float: right;
 	margin: 10px;
 }
-
 
 .overturned_red {
 	background:url('../img/dotafortress/red_overturned.gif');
@@ -473,4 +347,10 @@ p {
 	position: relative;
 	-webkit-margin-before: 0px;
 	-webkit-margin-after: 0px;
+  text-transform: uppercase;
+}
+
+#picksnbans .portrait {
+  width: 66px;
+  height: 90px;
 }

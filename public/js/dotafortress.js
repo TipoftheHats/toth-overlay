@@ -1,3 +1,4 @@
+//execute after the DOM has loaded
 $(document).ready(function (){
 	//load Ion.Sound plugin
 	$.getScript("js/ion.sound.min.js", function() {
@@ -143,33 +144,120 @@ $(document).ready(function (){
 				"spy_jeers05",
 				"spy_jeers06"
 			],
-			path: "snd/df/",                	// set path to sounds
-			multiPlay: true,                // can play multiple sounds at once
-			volume: "0.15"                   // not so loud please
+			path: "snd/df/",  // set path to sounds
+			multiPlay: true,  // can play multiple sounds at once
+			volume: "0.15"    // not so loud please
 		});
 	});
 
-    var messages = [];
-    var dashHostname = 'http://'+document.location.hostname+':1337';
-    var dashSocket = io.connect(dashHostname);
+  var messages = [];
+  var dashHostname = 'http://'+document.location.hostname+':1337';
+  var dashSocket = io.connect(dashHostname);
     
-    dashSocket.on('message', function (data) {
-        switch(data.message) {
-            case 'df_ban':
-                banCard(data);
-                break;
-			case 'df_unban':
-                unbanCard(data);
-                break;
-			case 'df_pickplayer':
-                pickPlayer(data);
-                break;
-			case 'df_unpick':
-                unPick(data);
-                break;
-        }
-     });
+  dashSocket.on('message', function (data) {
+    switch(data.message) {
+      case 'df_ban':
+        banCard(data);
+        break;
+      case 'df_unban':
+        unbanCard(data);
+        break;
+      case 'df_pickplayer':
+        pickPlayer(data);
+        break;
+      case 'df_unpick':
+        unPick(data);
+        break;
+    }
+  });
 	
+  //*----- Display Page Setup -----*//
+  
+  var classes = [ "scout", "soldier", "pyro", "demoman", "heavy", "engineer", "medic", "sniper", "spy" ];
+  
+  var players = {
+		scout: [
+			"clockwork",
+			"ruwin",
+			"squid",
+			"cyzer",
+			"decimate",
+			"enigma",
+			"shrugger",
+			"youmustmike",
+			"deadbolt",
+      "br0nze"
+		],
+		soldier: [
+			"blaze",
+			"tlr",
+			"seagull",
+			"lansky",
+			"grape",
+			"tagg",
+			"ma3la",
+			"milo",
+			"rr",
+			"platinum"
+		],
+		pyro: [
+			"cygnus",
+			"hueylewis",
+			"puddingcup"
+		],
+		demoman: [
+			"bdonski",
+			"xalox",
+			"duwatna",
+			"b4nny",
+			"dummy"
+		],
+		heavy: [
+			"snailboat",
+			"arthur",
+			"skyrolla"   
+		],
+		engineer: [
+			"sigafoo",
+			"spamfest",
+			"vhalin"   
+		],
+		medic: [
+			"smaka",
+			"shade",
+			"indust",
+			"pyyyour",
+			"harbleu"
+		],
+		sniper: [
+			"bloodsire",
+			"max",
+			"paragon"
+		],
+		spy: [
+			"stabby",
+			"hei",
+			"acooma"
+		]   
+	};
+  
+  /* programmatically generate each player's card, appending it to the
+   * corresponding tf2class div in the html scaffolding in dotafortress.html */
+  for (var i = 0; i < classes.length; i++) {
+    var c = classes[i];
+    $('#' + c).html('');
+    for (var j = 0; j < players[c].length; j++) {
+      var p = players[c][j];
+      $('#' + c).append('<div id="' + p + '" class="playercard ' + c + 'card">' + 
+                        '<p>' + p + '</p>' + 
+                        '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + p + '_red.jpg">' +           
+                        '<source id="webmsource" src="/img/dotafortress/portrait/' + p + '_red.webm" type="video/webm"></video></div>'
+      );
+    }
+  }
+  
+  //*----- Util -----*//
+  
 	function getCheer(tf_class) {
 		var numCheers = {demoman: 8, engineer: 7, heavy: 8, medic: 6, pyro: 3, scout: 6, sniper: 8, soldier: 6, spy: 8}
 		
@@ -190,7 +278,7 @@ $(document).ready(function (){
 	
 	//*----- BANS -----*//
 	
-    function banCard(data) {
+  function banCard(data) {
 		if(data.content) {
 			var msgParsed = JSON.parse(data.content);
 			if(msgParsed.player && msgParsed.tf_class) {
@@ -201,8 +289,8 @@ $(document).ready(function (){
 			
 				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.7)');
 			}
-        }
     }
+  }
 	
 	function unbanCard(data) {
     if(data.content) {
@@ -227,7 +315,15 @@ $(document).ready(function (){
 				$(msgParsed.slot).addClass(msgParsed.tf_class+"card");
 				$(msgParsed.slot).css('width', '81px');
 				$(msgParsed.slot).css('height', '116px');
-				$(msgParsed.slot).html($("#"+msgParsed.player).html());
+        
+        //copy the html of the "source" playercard into the "picked" playercard       
+        var content = $("#"+msgParsed.player).html();
+        if (msgParsed.team == "blu") {
+          //portraits are red by default, make it blu for blu team
+          var content = content.replace( new RegExp("_red.", 'g'), "_blu.");
+        }        
+        $(msgParsed.slot).html(content);
+        
 				
 				//dim the playercard since it can no longer be picked
 				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.7)');
@@ -246,18 +342,29 @@ $(document).ready(function (){
 	function unPick(data) {
 		if(data.content) {
 			var msgParsed = JSON.parse(data.content);
-			if(msgParsed.slot) {
-				$(''+msgParsed.slot+'').css('-webkit-filter','none');
-				$(''+msgParsed.slot+'').removeClass();
-				$(''+msgParsed.slot+'').addClass('playercard');
-				$(''+msgParsed.slot+'').html();
-				
-				if(msgParsed.team == "red") {
-					$(''+msgParsed.slot+'').addClass('overturned_red');
-				} else {
-					$(''+msgParsed.slot+'').addClass('overturned_blu');
-				}
-			}
+			if(!msgParsed.slot || !msgParsed.player) {
+        console.error("[unPick] Could not parse data!");
+      }
+      
+      $(''+msgParsed.slot+'').css('-webkit-filter','none');
+      $(''+msgParsed.slot+'').removeClass();
+      $(''+msgParsed.slot+'').addClass('playercard');
+      $(''+msgParsed.slot+'').html();
+      
+      if(msgParsed.team == "red") {
+        $(''+msgParsed.slot+'').addClass('overturned_red');
+      } else {
+        $(''+msgParsed.slot+'').addClass('overturned_blu');
+      }
+      
+      if(msgParsed.player) {	
+        $("#"+msgParsed.player).css('-webkit-filter','brightness(1.0)');
+      }
 		}
 	}
+});
+
+// execute after all of the graphics have loaded
+$(window).load(function() {
+   console.log("all done, chief");
 });
