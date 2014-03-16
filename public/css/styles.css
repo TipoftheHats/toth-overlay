@@ -292,9 +292,11 @@ body {
   height: 100%;
   -webkit-transition: background-color 0.4s linear;
   position: absolute;
-  -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;
-  -webkit-mask-size: 0% 100%;
+  top: -100%;
+  background-size: 1px 1440px; 
+  background-position-y: -720px;
 }
+
 #shuttercontainer {
 	z-index: 10;
 	overflow:hidden;
@@ -302,42 +304,13 @@ body {
 	height: 100%;
 	position: absolute;
 }
-#shutter1 {	
-	left: 0%;
 
-}
-#shutter2 {
-	left: 12.5%;
-}
-#shutter3 {
-	left: 25%;
-  background:url('../img/logo_slices/logo_slice1.png');
-  background-repeat: no-repeat;
-	background-position:center;
-}
-#shutter4 {
-	left: 37.5%;
-	background:url('../img/logo_slices/logo_slice2.png');
-  background-repeat: no-repeat;
-	background-position:center;
-}
-#shutter5 {
-	left: 50%;
-	background:url('../img/logo_slices/logo_slice3.png');
-  background-repeat: no-repeat;
-	background-position:center;
-}
-#shutter6 {
-	left: 62.5%;
-	background:url('../img/logo_slices/logo_slice4.png');
-  background-repeat: no-repeat;
-	background-position:center;
-}
-#shutter7 {
-	left: 75%;
-}
-#shutter8 {
-	left: 87.5%;
+/* vertically center logoslice images */
+#shuttercontainer img {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 /* ----- Rosters ----- */
@@ -402,6 +375,8 @@ body {
 
 #leftroster > div, #rightroster > div, #classicon > div{
   background-color: #f4f4f5;
+  overflow: hidden;
+  max-width: 234px;
 }
 
 #leftroster > div {

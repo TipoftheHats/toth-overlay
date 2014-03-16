@@ -250,13 +250,19 @@ $(document).ready(function () {
   }
 
   //*----- SCENE -----*//
-
-  for (var i = 1; i <= 8; i++) {
-    $('#shutter' + i).slideUp(0);
-    var newColor = shadeColor("#f95620", -15 * (i - 1));
-    $('#shutter' + i).css('background-color', newColor);
+  
+  //programmatically generate shutter slices
+  var numSlices = 8;
+  for (var i = 1; i <= numSlices; i++) {
+    $('#shuttercontainer').append('<div id="shutter' + i +
+      '" class="shutter"><img src="../img/logo_slices/logo_slice' + i + '.png"></div>');
+    $('#shutter' + i).css('left', (1 / numSlices) * (i - 1) * 100 + "%");
+    var bgColor = shadeColor("#fdfdfe", -15 * i); //light to dark
+    var bgGradient = shadeColor("#f37424", -15 * (numSlices - i + 1)); //invert, dark to light
+    $('#shutter' + i).css('background-color', bgColor);
+    $('#shutter' + i).css('background-image', '-webkit-linear-gradient(top, rgba(255,205,40,0) 50%, ' + bgGradient +' 95%)');
   }
-
+  
   function playTransition () {
     dropShutters();
     setTimeout(raiseShutters, 1300);
@@ -268,15 +274,14 @@ $(document).ready(function () {
       $.ionSound.play("transition_in");
     }, 50);
   
-    for (var i = 1; i <= 8; i++) {
-      var newColor = shadeColor("#fdfdfe", -15 * i);
+    for (var i = 1; i <= numSlices; i++) {
       $('#shutter' + i).delay(i * 50)
-                       .data("color", newColor)
-                       .queue(function( nxt ) {
-                         $(this).slideDown(500);
-                         $(this).css('background-color', $(this).data("color"));
-                         nxt(); // continue the queue 
-                       });
+        .transition({
+          'top': '0%'
+        }, 500, 'linear')
+        .transition({
+          'background-position-y': '0px'
+        }, 500, 'ease-out');
     }
   }
 
@@ -286,23 +291,14 @@ $(document).ready(function () {
       $.ionSound.play("transition_out");
     }, 50);
 
-    for (var i = 1; i <= 8; i++) {
-      setTimeout(raisePanel, (i * 50));
-    }
-    setTimeout(resetColor, 1300);
-
-    var count = 1;
-
-    function raisePanel () {
-      $('#shutter' + count).slideUp(500);
-      count++;
-    }
-
-    function resetColor () {
-      for (var i = 1; i <= 8; i++) {
-        var newColor = shadeColor("#f95620", -15 * (i - 1));
-        $('#shutter' + i).css('background-color', newColor);
-      }
+    for (var i = 1; i <= numSlices; i++) {
+      $('#shutter' + i).delay(i * 50)
+        .transition({
+          'background-position-y': '-720px'
+        }, 500, 'linear')
+        .transition({
+          'top': '-100%'
+        }, 500, 'ease-out');
     }
   }
 
