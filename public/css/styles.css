@@ -62,8 +62,8 @@ body {
   overflow: hidden;
   background-color: #f4f4f5;
 	color: black;
-  height: 164px;
-	top: -196px; /* no idea why percentage doesn't work here */
+  height: 204px;
+	top: -238px; /* no idea why percentage doesn't work here */
   padding: 16px 30px;
   line-height: 40px;
 }
@@ -75,7 +75,7 @@ body {
 	-webkit-perspective-origin: 50% 50%;
 	z-index: 2;	
 	position: absolute;
-	top: 210px;
+	top: 188px;
 	right: 405px;
 }
 
@@ -125,6 +125,15 @@ body {
   width:32px;
   height: 32px;
   background:url('../img/website.png');
+  background-size: cover;
+  vertical-align:middle;
+}
+
+#onestep {
+  display:inline-block;
+  width:32px;
+  height: 32px;
+  background:url('../img/onestep_stylized.png');
   background-size: cover;
   vertical-align:middle;
 }

@@ -113,7 +113,7 @@ $(document).ready(function () {
     $.ionSound.play("socialmedia_out-v2");
 
     $('#linktext').transition({
-        'top': '-196px'
+        'top': '-238px'
       }, 500, 'ease');
       
     setTimeout(hideHat, 500);
