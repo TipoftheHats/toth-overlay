@@ -77,14 +77,17 @@ $(document).ready(function () {
 
   function showLinks () {
     // play sound
-    setTimeout(function () {
-      $.ionSound.play("socialmedia_in-v2");
-    }, 0);
+    $.ionSound.play("socialmedia_in-v2");
 
-    $('#links').css('width', '31.25%');
-    $('#linktextcontainer').css('opacity', '100');
+    $('#links').transition({
+        'width': '31.25%'
+      }, 500, 'linear');
 
-    setTimeout(slideDown, 475);
+    $('#linktext').delay(475)
+      .transition({
+        'top': '0px'
+      }, 500, 'ease');
+
     showHat();
 
     function showHat () {
@@ -103,35 +106,26 @@ $(document).ready(function () {
         $('#hatty').addClass('animated pulseSmaller');
       }, 1000);
     }
-
-    // doesn't work in obs, because BSP doesn't support perspective!
-    /*function flipDown () {
-      $('#linktextcontainer').css('transform','rotateX( 0deg )');
-      $('#linktext').css('opacity','100');
-    }*/
-
-    function slideDown () {
-      $('#linktextcontainer').css('transform', 'translateY(0px)');
-      $('#linktext').css('opacity', '100');
-    }
   }
 
   function hideLinks () {
     //play sound
-    setTimeout(function () {
-      $.ionSound.play("socialmedia_out-v2");
-    }, 0);
+    $.ionSound.play("socialmedia_out-v2");
 
-    $('#linktextcontainer').css('transform', 'translateY(-194px)');
+    $('#linktext').transition({
+        'top': '-196px'
+      }, 500, 'ease');
+      
     setTimeout(hideHat, 500);
-
     setTimeout(shrinkOut, 450);
 
     function shrinkOut () {
-      $('#links').css('width', '0');
-      $('#linktextcontainer').css('opacity', '0');
-      $('#linktext').css('opacity', '0');
-      $('#hattycontainer').css('right', '555px');
+      $('#links').transition({
+        'width': '0%'
+      }, 500, 'linear');
+      $('#hattycontainer').transition({
+        'right': '555px'
+      }, 370, 'linear');
     }
 
     function hideHat () {

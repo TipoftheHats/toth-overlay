@@ -43,46 +43,29 @@ body {
   transform: translate(-50%,-50%);
   -webkit-transform: translate(-50%,-50%);
   width: 0px;
-  transition: width 0.5s linear;
-  -webkit-transition: width 0.5s linear;
 	overflow-x: hidden;
 }
 
 #linktitle {
-  overflow:hidden;
+  overflow: hidden;
   color: #f4f4f5; 
   background: #F37424;
-  margin: 2px 30px;
+  padding: 2px 30px;
   vertical-align: middle;
-}
-
-#linktitlecontainer {
-  overflow:hidden;
-  background: #F37424;
   height: 40px;
 }
 
 #linktext {
-  overflow: hidden;
-  margin:16px 30px;
-  line-height: 40px;
-	opacity: 0;
-}
-
-#linktextcontainer {
   font-size:24px;
-	position: relative; /*required to make z-index work*/
+	position: relative;
   z-index: -1;
   overflow: hidden;
   background-color: #f4f4f5;
 	color: black;
-  height: 194px;
-	transition: width 300ms linear, height 500ms linear, transform 500ms ease, opacity 100ms ease;
-	-webkit-transition: width 300ms linear, height 500ms linear, -webkit-transform 500ms ease, opacity 100ms ease;
-	transform-origin: 0% 0%;
-	-webkit-transform-origin: 0% 0%;
-	transform: translateY(-194px);
-	-webkit-transform: translateY(-194px);
+  height: 164px;
+	top: -196px; /* no idea why percentage doesn't work here */
+  padding: 16px 30px;
+  line-height: 40px;
 }
 
 #hattycontainer {
@@ -94,25 +77,18 @@ body {
 	position: absolute;
 	top: 210px;
 	right: 405px;
-	transition: right 370ms linear;
-  -webkit-transition: right 370ms linear;
 }
 
 #hatty {
 	width: 155px;
 	height: 110px;
-  background:url('../img/hatty_shadow.png');
+  background: url('../img/hatty_shadow.png');
   background-size: contain;
 	background-repeat: no-repeat;
-  vertical-align:middle;
+  vertical-align: middle;
+  opacity: 0;	
   -webkit-transition: -webkit-transform 500ms ease, opacity 200ms ease;
 	-webkit-transform: translate3d( 0, 100px, -100px ) rotateX( -90deg );
-	opacity: 0;
-	
-	/*causes massive aliasing issues when used with animations */
-	/*filter: drop-shadow(5px 5px 5px #222);
-	-webkit-filter: drop-shadow(5px 5px 5px #222);*/
-	
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-duration: 5s;
 }
