@@ -36,11 +36,11 @@ $(document).ready(function (){
     }, 1000, 'ease-out');
     
     $('#upnext').html('Up next - ' + data.content);
-    $('#upnext').removeClass('fadeOutDown');
-    $('#upnext').addClass('animated fadeInUp');
+    $('#upnext').removeClass('fadeOutUp');
+    $('#upnext').addClass('animated fadeInDown');
     $('#upnext').on('webkitAnimationEnd', 
       function() {
-        $('#upnext').removeClass('fadeInUp');
+        $('#upnext').removeClass('fadeInDown');
       });
   }
 
@@ -49,7 +49,7 @@ $(document).ready(function (){
       'top': '-36px'
     }, 1000, 'ease-out');
   
-    $('#upnext').addClass('animated fadeOutDown');
+    $('#upnext').addClass('animated fadeOutUp');
   }	
   
   function showCountdown(data) {
