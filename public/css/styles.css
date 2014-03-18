@@ -53,6 +53,7 @@ body {
   padding: 2px 30px;
   vertical-align: middle;
   height: 40px;
+  text-shadow: 0 0 2px rgba(150,150,150,.5);
 }
 
 #linktext {
@@ -66,6 +67,7 @@ body {
 	top: -238px; /* no idea why percentage doesn't work here */
   padding: 16px 30px;
   line-height: 40px;
+  white-space: nowrap; 
 }
 
 #hattycontainer {
@@ -159,6 +161,7 @@ body {
   color: #f4f4f5; 
   margin: 0.1em 0.1em 0.1em 1em;
   vertical-align: middle;
+  text-shadow: 0 0 2px rgba(150,150,150,.5);
 }
 
 #alerttitlecontainer {
@@ -245,6 +248,7 @@ body {
   color: #f4f4f5; 
   margin: 0.1em 1em 0.1em 30px;
   vertical-align: middle;
+  text-shadow: 0 0 2px rgba(150,150,150,.5);
 }
 
 #lowerthirdtitlecontainer {
@@ -332,6 +336,7 @@ body {
   /* animate on -webkit-mask-size for a "Barn door wipe" */
   -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;
   -webkit-mask-size: 0% 100%;
+  text-shadow: 0 0 2px rgba(150,150,150,.5);
 }
 
 #rosterbody {

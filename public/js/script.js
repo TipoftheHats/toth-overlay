@@ -280,7 +280,7 @@ $(document).ready(function () {
   }
 
   function raiseShutters () {
-    // play sound
+    // play soundd
     setTimeout(function () {
       $.ionSound.play("transition_out");
     }, 50);

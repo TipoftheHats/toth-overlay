@@ -11,9 +11,13 @@ body {
     background: url("http://teamfortress.tv/img/base/bg-tex.png") repeat scroll 0% 0%, none repeat scroll 0% 0% rgb(134, 141, 141);
 }
 
+#wrapper {
+  margin: 0.5em;
+}
+
 #container {
-    margin: 0.5em auto;
-    max-width: 66em;
+  margin: 0.5em auto;
+  max-width: 66em;
 }
 
 .heading {

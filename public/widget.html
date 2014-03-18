@@ -2,14 +2,24 @@
 <head>
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></link>
  <link rel="stylesheet" type="text/css" href="css/widget_style.css">
+ <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
  <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
  <script src="/socket.io/socket.io.js"></script>
+ <script src="js/masonry.pkgd.min.js"></script>
+ <script src="js/jquery.datetimepicker.js"></script>
  <script>
   function sendMessage(socket, commandstring, meta) {
     socket.emit('send', {message: commandstring, content: meta });
   }	
 	
   window.onload = function() {
+  var $container = $('#container');
+  // initialize
+  $container.masonry({
+    columnWidth: 264,
+    itemSelector: '.panel'
+  });
+  
   var messages = [];
   var hostname = 'http://'+document.location.hostname+':1337';
   var socket = io.connect(hostname);
@@ -47,7 +57,7 @@
   //*----- SCENE -----*//
   
   $('#scenebutton').click(function() { prepSceneChange($('#scenename').val(), true); });
-  $('#scenedropbutton').click(function() { prepSceneChange(sceneName.value); });
+  $('#scenedropbutton').click(function() { prepSceneChange($('#scenename').val(), false); });
   $('#dropshutters').click(function() { sendMessage(socket, 'dropshutters', ''); });
   $('#raiseshutters').click(function() { sendMessage(socket, 'raiseshutters', ''); });
   
@@ -151,6 +161,7 @@
     }  
 
     //*----- ROSTERS -----*//
+    
     var rosterSize = $("input:radio[name=rostersize]:checked").val();
     $("input:radio[name=rostersize]").change(function() {
         changeRosterSize();
@@ -221,10 +232,24 @@
         $('#rostertable > div:nth-child('+i+') > div:nth-child(3) > input').val(temp);
       }
     }
+    
+    //*----- BRB -----*//
+    
+    $('#gotobrbscene').click(function() { prepSceneChange('toth2-brb', true); });
+    $('#showupnext').click(function() { sendMessage(socket, 'showupnext', $('#upnext').val()); });
+    $('#hideupnext').click(function() { sendMessage(socket, 'hideupnext', ''); });
+    $('#showcountdown').click(function() { sendMessage(socket, 'showcountdown', $('#countdown').val() + ':00'); });
+    $('#hidecountdown').click(function() { sendMessage(socket, 'hidecountdown', ''); });
+    
+    $('#countdown').datetimepicker({
+      datepicker:false,
+      format:'H:i'
+    });
   }    
  </script>
 </head>
 <body>
+<div id="wrapper">
 <div id="container">
     <div class="panel">
         <span class="heading">Social Media:</span>
@@ -351,17 +376,23 @@
         <button type="button" id="swapteamcolors">Swap team colors</button>
     </div>
     
-    <div class="panel" id="rosters">
-        <span class="heading">Roster Rundowns:</span>
-        <div class="triplet"><div class="row"> 
-            <div class="button"><input type="radio" name="rostersize" value="6" checked="checked">6v6</div>
-            <div class="button"><input type="radio" name="rostersize" value="9">9v9</div>
-        </div></div>
-        <div class="table" id="rostertable"></div>
-        <button type="button" id="swaprosters">Swap rosters</button>
-        <button type="button" id="showrosters">Show rosters</button>
-        <button type="button" id="hiderosters" class="hidebutton">Hide rosters</button>
-    </div>
+    <div class="panel" id="brb">
+      <span class="heading">BRB Scene:</span>
+      <button type="button" id="gotobrbscene">Go to BRB Scene</button> 
+      <span class="heading">Up Next:</span>
+      <input type="field" id="upnext" style="width:100%" />
+      <div class="triplet"><div class="row"> 
+        <div class="button"><button type="button" id="showupnext">Show Up Next</button></div>
+        <div class="button"><button type="button" id="hideupnext" class="hidebutton">Hide Up Next</button></div>
+      </div></div>
+      <span class="heading">Countdown:</span>
+      <input type="field" id="countdown" style="width:100%" />
+      <div class="triplet"><div class="row"> 
+        <div class="button"><button type="button" id="showcountdown">Show Countdown</button></div>
+        <div class="button"><button type="button" id="hidecountdown" class="hidebutton">Hide Countdown</button></div>
+      </div></div>
+    </div>    
+</div>
 </div>
 </body>
 </html>

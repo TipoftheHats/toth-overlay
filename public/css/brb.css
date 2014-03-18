@@ -1,0 +1,115 @@
+/**************************************/
+/*     	          FONT		    	  */
+/**************************************/
+@font-face {
+    font-family: 'AvenirMedium';
+    src: url('../font/avenir_medium.eot');
+    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
+         url('../font/avenir_medium.woff') format('woff'),
+         url('../font/avenir_medium.ttf') format('truetype'),
+         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
+}
+body {
+  padding: 0px;
+  margin: 0px;
+  background: none;
+  background:url('../img/bg720.png');
+  background-size: 1280px 720px;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: 0;
+}
+
+#container {
+    position: relative;
+    margin: 0px;
+    width: 1280;
+    height: 720;
+    overflow: hidden;
+    font-family: AvenirMedium;
+    color: #f4f4f5;
+}
+
+/* ----- Text ----- */
+
+#brb {	
+	font-size: 95px; 
+  text-align: center;
+  position: relative;
+  top: 9%;
+  color: #f4f4f5;
+  text-shadow: 0 0 2px rgba(0,0,0,1);
+}
+
+#upnext, #countdown {	
+  width: 802px;
+  margin: auto;
+  padding: 2px 30px;
+  text-align: center;
+  position: relative;
+	font-size: 50px; 
+  color: #f4f4f5;
+  text-shadow: 0 0 2px rgba(0,0,0,1);
+  height: 68px;
+}
+
+#upnext {
+  top: 36px;
+}
+
+#dynamicdata {
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+}
+
+#info {
+  width: 802px;
+  border: none;
+  position: absolute;
+  top: 68%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+}
+
+#info thead {
+  overflow: hidden;
+  color: #f4f4f5; 
+  background: #F37424;
+  padding: 2px 30px;
+  vertical-align: middle;
+  font-size: 40px;
+  text-shadow: 0 0 2px rgba(150,150,150,.5);
+}
+
+#info thead td {
+  padding: 2px 30px;
+}
+
+#info tbody {
+  font-size: 34px;
+	position: relative;
+  overflow: hidden;
+  background-color: #f4f4f5;
+	color: black;
+  line-height: 40px;  
+}
+
+#info tbody td {
+  padding: 0px 30px 16px 30px;
+  color: #e7501e;
+  text-shadow: 0 0 1px rgba(231,80,30,0.3);
+}
+
+#info img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+/* only do top padding for first row */
+#info > tbody > tr:nth-child(1) > td {
+  padding-top: 16px;
+}
