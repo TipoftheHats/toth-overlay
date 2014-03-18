@@ -31,6 +31,10 @@ $(document).ready(function (){
       return;
     }
     
+    $('#countdown').transition({
+      'top': '0px'
+    }, 1000, 'ease-out');
+    
     $('#upnext').html('Up next - ' + data.content);
     $('#upnext').removeClass('fadeOutDown');
     $('#upnext').addClass('animated fadeInUp');
@@ -41,6 +45,10 @@ $(document).ready(function (){
   }
 
   function hideUpNext() {
+    $('#countdown').transition({
+      'top': '-36px'
+    }, 1000, 'ease-out');
+  
     $('#upnext').addClass('animated fadeOutDown');
   }	
   

@@ -57,6 +57,10 @@ body {
   top: 36px;
 }
 
+#countdown {
+  top: -36px;
+}
+
 #dynamicdata {
   position: absolute;
   top: 37%;
