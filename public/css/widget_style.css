@@ -210,3 +210,8 @@ button {
 button:active {
     color: gray;
 }
+
+/* scene */
+#sceneselect {
+  width: 99%;
+}

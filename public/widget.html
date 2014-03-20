@@ -57,18 +57,32 @@
 		
   //*----- SCENE -----*//
   
-  $('#scenebutton').click(function() { prepSceneChange($('#scenename').val(), true); });
-  $('#scenedropbutton').click(function() { prepSceneChange($('#scenename').val(), false); });
+  $('#refreshscenes').click(function() { requestScenes(); });
+  $('#scenebutton').click(function() { prepSceneChange($('#sceneselect').find("option:selected").val(), true); });
+  $('#scenedropbutton').click(function() { prepSceneChange($('#sceneselect').find("option:selected").val(), false); });
   $('#dropshutters').click(function() { sendMessage(socket, 'dropshutters', ''); });
   $('#raiseshutters').click(function() { sendMessage(socket, 'raiseshutters', ''); });
   
   var obsRemoteURL = 'ws://localhost:4444';
-  var sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
+  var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
+  obsSocket.onmessage = function (e) {
+    var msgParsed = JSON.parse(e.data);
+    if (!msgParsed.scenes) {
+      return;
+    }
+    
+    var numScenes = msgParsed.scenes.length;
+    var newoptions = "";
+    for (var i = 0; i < numScenes; i++) {
+      newoptions += "<option>"+ msgParsed.scenes[i].name +"</option>";
+      $('#sceneselect').html(newoptions);
+    }    
+  };
   
   function checkOBSSocket() {
     //re-open the socket if it is "CLOSED" (3) or "CLOSING" (2)
-    if (sceneSocket.readyState == 2 || sceneSocket.readyState == 3) {
-      sceneSocket = new WebSocket(obsRemoteURL, "obsapi");
+    if (obsSocket.readyState == 2 || obsSocket.readyState == 3) {
+      obsSocket = new WebSocket(obsRemoteURL, "obsapi");
       console.log("[SCENE] re-opening OBS socket");
       return true;
     }
@@ -76,18 +90,29 @@
     return false;
   }
   
+  function requestScenes() {
+    checkOBSSocket();  
+    var sceneRequest = {};
+    sceneRequest["request-type"] = "GetSceneList";
+
+    obsSocket.send(JSON.stringify(sceneRequest));   
+  }
+  
   function prepSceneChange(msg, autoraise) {
       if (checkOBSSocket() == true) {
         //the socket wasn't connected, so let's give it time to open
         setTimeout(function(){
-          sceneSocket.send(obsJSON);
+          doWork();
         }, 200);
       } else {
         //socket is already open, do the work immediately
         doWork();
       }
       
-      function doWork() {
+      function doWork() {      
+        //get new list of scenes
+        requestScenes();
+        
         //set up json request for obs scene change             
         var obs = {"request-type": "SetCurrentScene", "scene-name": msg, "message-id": 1};
         var obsJSON = JSON.stringify(obs);        
@@ -102,7 +127,7 @@
 
         //trigger scene change in obs
         setTimeout(function(){
-          sceneSocket.send(obsJSON);
+          obsSocket.send(obsJSON);
         }, 1000);        
       }      
     }	
@@ -274,7 +299,10 @@
     <div class="panel">
         <span class="heading">Scene name:</span>
         <i class="fa fa-video-camera"></i>
-        <input type="field" id="scenename" style="width:100%" />
+        <div class="triplet"><div class="row"> 
+          <div class="button"><select id="sceneselect"></select></div>  
+          <button type="button"id="refreshscenes">Refresh list</button>
+        </div></div>        
         <button type="button"id="scenebutton">Change scene (auto drop/raise)</button>
         <button type="button"id="scenedropbutton">Change scene (drop only)</button>
         <div class="triplet"><div class="row"> 
