@@ -3,6 +3,7 @@
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></link>
  <link rel="stylesheet" type="text/css" href="css/widget_style.css">
  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+ <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
  <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
  <script src="/socket.io/socket.io.js"></script>
  <script src="js/masonry.pkgd.min.js"></script>
@@ -253,6 +254,7 @@
 <div id="container">
     <div class="panel">
         <span class="heading">Social Media:</span>
+        <i class="fa fa-link"></i>
         <div class="triplet"><div class="row">            
             <div class="button"><button type="button" id="showlinks">Show</button></div>
             <div class="button"><button type="button" id="pulselinks10">10s</button></div>
@@ -264,12 +266,14 @@
     
     <div class="panel">
         <span class="heading">Alert Msg:</span>
+        <i class="fa fa-bell-o"></i>
         <input type="field" id="alertmessage" style="width:100%" />
         <button type="button" id="sendalert">Send alert</button>
     </div>
     
     <div class="panel">
         <span class="heading">Scene name:</span>
+        <i class="fa fa-video-camera"></i>
         <input type="field" id="scenename" style="width:100%" />
         <button type="button"id="scenebutton">Change scene (auto drop/raise)</button>
         <button type="button"id="scenedropbutton">Change scene (drop only)</button>
@@ -281,18 +285,21 @@
     
     <div class="panel">
         <span class="heading">SizzlingStats ID:</span>
+        <i class="fa fa-bar-chart-o"></i>
         <input type="field" id="statsid" style="width:100%" />
         <button type="button" id="showstatsbutton">Update stats</button>
     </div>
     
     <div class="panel">
         <span class="heading">Challonge Bracket ID:</span>
+        <i class="fa fa-list"></i>
         <input type="field" id="bracketid" style="width:100%" />
         <button type="button" id="showbracketbutton">Update bracket</button>
     </div>
     
     <div class="panel">
         <span class="heading">Lowerthird Title:</span>
+        <i class="fa fa-info"></i>
         <input type="field" id="lowerthirdtitle" style="width:100%" />
         <span class="heading">Lowerthird Text:</span>
         <input type="field" id="lowerthirdtext" style="width:100%" />
@@ -307,6 +314,7 @@
     
     <div class="panel" id="scoreboard">
         <span class="heading">Scoreboard:</span>
+        <i class="fa fa-map-marker"></i>
         <div class="triplet"><div class="row">
             <div class="button">
                 <div class="subheading">Team 1 Name</div>
@@ -378,6 +386,7 @@
     
     <div class="panel" id="rosters">
         <span class="heading">Roster Rundowns:</span>
+        <i class="fa fa-sort-amount-asc"></i>
         <div class="triplet"><div class="row"> 
             <div class="button"><input type="radio" name="rostersize" value="6" checked="checked">6v6</div>
             <div class="button"><input type="radio" name="rostersize" value="9">9v9</div>
@@ -390,6 +399,7 @@
     
     <div class="panel" id="brb">
       <span class="heading">BRB Scene:</span>
+      <i class="fa fa-clock-o"></i>
       <button type="button" id="gotobrbscene">Go to BRB Scene</button> 
       <span class="heading">Up Next:</span>
       <input type="field" id="upnext" style="width:100%" />

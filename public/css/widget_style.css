@@ -170,16 +170,16 @@ body {
 }
 
 /* WRGB, CMYK reduced value, BGR analogs ... http://color-hexa.com/ */
-.fa-volume-up {color:white;}
+.fa-info{color:white;}
 .fa-bar-chart-o {color:red;}
 .fa-link {color:blue;}
-.fa-bell-o {color:green;}
-.fa-sort-amount-desc {color: #0BB;}
+.fa-clock-o {color: #ff8000;}
+.fa-sort-amount-asc {color: #0BB;}
 .fa-question-circle {color: #B0B;}
 .fa-list {color: #BB0;}
 .fa-video-camera {color: black;}
 .fa-map-marker {color: #8000ff;}
-.fa-calendar {color: #ff8000;}
+.fa-info {color:green;}
 
 /* buttons */
 .hidebutton {
