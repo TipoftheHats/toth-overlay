@@ -296,7 +296,7 @@ $(document).ready(function (){
 				console.log(jeer)
 				$.ionSound.play(jeer);
 			
-				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.7)');
+				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.3)');
 			}
     }
   }
