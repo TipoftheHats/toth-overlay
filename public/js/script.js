@@ -241,53 +241,44 @@ $(document).ready(function () {
   
   var numSlices = 8;
   var currentAnim = '';
-  var inTrans = false;
   
   var obsRemoteURL = 'ws://localhost:4444';
   var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
   
   function playTransition (data) {
-    //don't start a new transition one is playing
-    if (inTrans == true) {
-      //return;
-    }
-    
     var msgParsed = JSON.parse(data.content);    
     var anim = msgParsed.anim;
+    if (anim != '') { currentAnim = anim; }    
     var type = msgParsed.type; //inOnly, outOnly, full
-    var scene = msgParsed.scene;
-    console.log(scene);    
+    var scene = msgParsed.scene; 
     
     //set up json request for obs scene change             
     var msg = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
     
     if (anim == 'drop') {      
       if (type == 'inOnly') {
-        console.log('dropInOnly');
         dropIn();
-        return;
       } else if (type == 'outOnly') {
-        console.log('dropOutOnly');
         dropOut();
-        return;
       }else if (type == 'full') {
-        console.log('dropFull');
         dropIn();
         setTimeout(dropOut, 900);
       }      
     } else if (anim == 'angle') {      
       if (type == 'inOnly') {
-        console.log('angleInOnly');
         angleIn();
-        return;
       } else if (type == 'outOnly') {
-        console.log('angleOutOnly');
         angleOut();
-        return;
       }else if (type == 'full') {
-        console.log('angleFull');
         angleIn();
         setTimeout(angleOut, 800);
+      }
+    } else if (type == 'outLast') {
+      console.log(currentAnim);
+      if (currentAnim == 'drop') {
+        dropOut();
+      } else if (currentAnim == 'angle') {
+        angleOut();
       }
     }
     

@@ -379,9 +379,9 @@ $(window).load(function() {
   var url = $.url();
   if (url.param('raiseshutters') == 'true') {
     console.log("[DotaFortress] RaiseShutters is set to 'true'. Sending 'raiseshutters' message.");
-    var messages = [];
     var hostname = 'http://'+document.location.hostname+':1337';
     var socket = io.connect(hostname);
-    sendMessage(socket, 'raiseshutters', '');
+    var msg = {'anim':'', 'type': 'outLast', 'scene': ''};        
+    sendMessage(socket, 'transition', JSON.stringify(msg)); 
   }
 });
