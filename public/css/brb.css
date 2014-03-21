@@ -22,9 +22,9 @@ body {
 
 #container {
     position: relative;
-    margin: 0px;
+    margin: 60px 0px 60px 0px;
     width: 1280;
-    height: 720;
+    height: 600;
     overflow: hidden;
     font-family: AvenirMedium;
     color: #f4f4f5;
@@ -36,9 +36,12 @@ body {
 	font-size: 95px; 
   text-align: center;
   position: relative;
-  top: 9%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
   color: #f4f4f5;
   text-shadow: 0 0 2px rgba(0,0,0,1);
+  height: 28.15%;
+  line-height: 169px;
 }
 
 #upnext, #countdown {	
@@ -62,19 +65,19 @@ body {
 }
 
 #dynamicdata {
-  position: absolute;
-  top: 37%;
+  position: relative;
   left: 50%;
-  -webkit-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%, 0%);
+  height: 28.15%;
 }
 
 #info {
   width: 802px;
   border: none;
-  position: absolute;
-  top: 68%;
+  position: relative;
   left: 50%;
-  -webkit-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%, 0%);
+  height: 43.7%;
 }
 
 #info thead {
