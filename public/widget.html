@@ -64,24 +64,28 @@
   
   var obsRemoteURL = 'ws://localhost:4444';
   var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
-  obsSocket.onmessage = function (e) {
-    var msgParsed = JSON.parse(e.data);
-    if (!msgParsed.scenes) {
-      return;
-    }
-    
-    var numScenes = msgParsed.scenes.length;
-    var newoptions = "";
-    for (var i = 0; i < numScenes; i++) {
-      newoptions += "<option>"+ msgParsed.scenes[i].name +"</option>";
-      $('#sceneselect').html(newoptions);
-    }    
-  };
+  checkOBSSocket();
   
   function checkOBSSocket() {
-    //re-open the socket if it is "CLOSED" (3) or "CLOSING" (2)
-    if (obsSocket.readyState == 2 || obsSocket.readyState == 3) {
+    //re-open the socket if it is not "OPEN" (1)
+    if (obsSocket.readyState != 1) {
+      obsSocket.close();
       obsSocket = new WebSocket(obsRemoteURL, "obsapi");
+      obsSocket.onopen = function (e) { requestScenes(); };
+      obsSocket.onmessage = function (e) {
+        var msgParsed = JSON.parse(e.data);
+        if (!msgParsed.scenes) {
+          return;
+        }
+        
+        var numScenes = msgParsed.scenes.length;
+        var newoptions = "";
+        for (var i = 0; i < numScenes; i++) {
+          newoptions += "<option>"+ msgParsed.scenes[i].name +"</option>";
+          $('#sceneselect').html(newoptions);
+        }    
+      };
+      
       console.log("[SCENE] re-opening OBS socket");
       return true;
     }
@@ -90,44 +94,38 @@
   }
   
   function requestScenes() {
-    checkOBSSocket();  
-    var sceneRequest = {};
-    sceneRequest["request-type"] = "GetSceneList";
-
-    obsSocket.send(JSON.stringify(sceneRequest));   
-  }
-  
-  function prepTransition(type) {
     if (checkOBSSocket() == true) {
       //the socket wasn't connected, so let's give it time to open
-      setTimeout(function(){
-        doWork();
-      }, 200);
+      //it will call "requestScenes" automatically once it re-establishes
+      return;
     } else {
       //socket is already open, do the work immediately
       doWork();
     }
     
-    function doWork() {      
-      //get new list of scenes
-      requestScenes();
-      
-      //get values from drop down select boxes
-      var anim = $('#transitionselect').find("option:selected").val();
-      var scene = $('#sceneselect').find("option:selected").val();
-      
-      //set up json request for obs scene change             
-      var obs = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
-      var obsJSON = JSON.stringify(obs);
+    function doWork() { 
+      console.log('dowork');
+      var sceneRequest = {};
+      sceneRequest["request-type"] = "GetSceneList";
 
-      var msg = {'anim': anim, 'type': type, 'scene': scene};        
-      sendMessage(socket, 'transition', JSON.stringify(msg));
+      obsSocket.send(JSON.stringify(sceneRequest));
+    }
+  }
+  
+  function prepTransition(type) {   
+    //get new list of scenes
+    requestScenes();
+    
+    //get values from drop down select boxes
+    var anim = $('#transitionselect').find("option:selected").val();
+    var scene = $('#sceneselect').find("option:selected").val();
+    
+    //set up json request for obs scene change             
+    var obs = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
+    var obsJSON = JSON.stringify(obs);
 
-      //trigger scene change in obs
-      setTimeout(function(){
-        obsSocket.send(obsJSON);
-      }, 1000);        
-    }      
+    var msg = {'anim': anim, 'type': type, 'scene': scene};        
+    sendMessage(socket, 'transition', JSON.stringify(msg));              
   }	
 		
 		//*----- STATS & BRACKET -----*//

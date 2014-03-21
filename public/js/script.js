@@ -243,6 +243,9 @@ $(document).ready(function () {
   var currentAnim = '';
   var inTrans = false;
   
+  var obsRemoteURL = 'ws://localhost:4444';
+  var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
+  
   function playTransition (data) {
     //don't start a new transition one is playing
     if (inTrans == true) {
@@ -252,7 +255,12 @@ $(document).ready(function () {
     var msgParsed = JSON.parse(data.content);    
     var anim = msgParsed.anim;
     var type = msgParsed.type; //inOnly, outOnly, full
-    console.log(type);
+    var scene = msgParsed.scene;
+    console.log(scene);    
+    
+    //set up json request for obs scene change             
+    var msg = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
+    
     if (anim == 'drop') {      
       if (type == 'inOnly') {
         console.log('dropInOnly');
@@ -265,7 +273,7 @@ $(document).ready(function () {
       }else if (type == 'full') {
         console.log('dropFull');
         dropIn();
-        setTimeout(dropOut, 1300);
+        setTimeout(dropOut, 900);
       }      
     } else if (anim == 'angle') {      
       if (type == 'inOnly') {
@@ -279,7 +287,7 @@ $(document).ready(function () {
       }else if (type == 'full') {
         console.log('angleFull');
         angleIn();
-        setTimeout(angleOut, 1300);
+        setTimeout(angleOut, 800);
       }
     }
     
@@ -305,27 +313,28 @@ $(document).ready(function () {
       dropInit();
     
       // play sound
-      setTimeout(function () {
-        //$.ionSound.play("transition_in");
-      }, 50);
+      //$.ionSound.play("transition_in");
     
       for (var i = 1; i <= numSlices; i++) {
-        $('#shutter' + i).delay(i * 50)
+        $('#shutter' + i).delay((i - 1) * 50)
           .transition({
             'top': '0%',
             'background-position-y': '0px'
           }, 400, 'ease-out')
       }
+      
+      //trigger scene change in obs
+      setTimeout(function(){
+        obsSocket.send(JSON.stringify(msg));
+      }, 800);
     }
     
     function dropOut () {
       // play sound
-      setTimeout(function () {
-        //$.ionSound.play("transition_out");
-      }, 50);
+      //$.ionSound.play("transition_out");
       
       for (var i = 1; i <= numSlices; i++) {
-        $('#shutter' + i).delay(i * 50)
+        $('#shutter' + i).delay((i - 1) * 50)
           .transition({
             'top': '-100%',
             'background-position-y': '-5760px'
@@ -369,21 +378,24 @@ $(document).ready(function () {
       inTrans = true;
       angleInit();
       
-      setTimeout(function(){ 
-        for (var i = 1; i <= numSlices; i++) {
-          console.log('animating ' + i);
-          $('#shutter' + i).transition({
-            '-webkit-mask-size': '100% 100%'
-          }, 1000, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
-        }
-      }, 100);
+      for (var i = 1; i <= numSlices; i++) {
+        console.log('animating ' + i);
+        $('#shutter' + i).transition({
+          '-webkit-mask-size': '100% 100%'
+        }, 700, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
+      }
+      
+      //trigger scene change in obs
+      setTimeout(function(){
+        obsSocket.send(JSON.stringify(msg));
+      }, 700);
     }
 
     function angleOut() {
       for (var i = 1; i <= numSlices; i++) {
         $('#shutter' + i).transition({
           '-webkit-mask-size': '100% 0%'
-        }, 1000, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
+        }, 700, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
       }
       
       inTrans = false;
