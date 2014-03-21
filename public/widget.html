@@ -58,10 +58,9 @@
   //*----- SCENE -----*//
   
   $('#refreshscenes').click(function() { requestScenes(); });
-  $('#scenebutton').click(function() { prepSceneChange($('#sceneselect').find("option:selected").val(), true); });
-  $('#scenedropbutton').click(function() { prepSceneChange($('#sceneselect').find("option:selected").val(), false); });
-  $('#dropshutters').click(function() { sendMessage(socket, 'dropshutters', ''); });
-  $('#raiseshutters').click(function() { sendMessage(socket, 'raiseshutters', ''); });
+  $('#scenebutton').click(function() { prepTransition('full'); });
+  $('#scenedropbutton').click(function() { prepTransition('inOnly'); });
+  $('#raiseshutters').click(function() { prepTransition('outOnly'); });
   
   var obsRemoteURL = 'ws://localhost:4444';
   var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
@@ -98,39 +97,38 @@
     obsSocket.send(JSON.stringify(sceneRequest));   
   }
   
-  function prepSceneChange(msg, autoraise) {
-      if (checkOBSSocket() == true) {
-        //the socket wasn't connected, so let's give it time to open
-        setTimeout(function(){
-          doWork();
-        }, 200);
-      } else {
-        //socket is already open, do the work immediately
+  function prepTransition(type) {
+    if (checkOBSSocket() == true) {
+      //the socket wasn't connected, so let's give it time to open
+      setTimeout(function(){
         doWork();
-      }
+      }, 200);
+    } else {
+      //socket is already open, do the work immediately
+      doWork();
+    }
+    
+    function doWork() {      
+      //get new list of scenes
+      requestScenes();
       
-      function doWork() {      
-        //get new list of scenes
-        requestScenes();
-        
-        //set up json request for obs scene change             
-        var obs = {"request-type": "SetCurrentScene", "scene-name": msg, "message-id": 1};
-        var obsJSON = JSON.stringify(obs);        
-        
-        if (autoraise) {
-          //trigger transition anim in index.html
-          sendMessage(socket, 'transition', '');
-        } else {
-          //just drop the shutters, we'll handle raising them manually
-          sendMessage(socket, 'dropshutters', '');
-        }
+      //get values from drop down select boxes
+      var anim = $('#transitionselect').find("option:selected").val();
+      var scene = $('#sceneselect').find("option:selected").val();
+      
+      //set up json request for obs scene change             
+      var obs = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
+      var obsJSON = JSON.stringify(obs);
 
-        //trigger scene change in obs
-        setTimeout(function(){
-          obsSocket.send(obsJSON);
-        }, 1000);        
-      }      
-    }	
+      var msg = {'anim': anim, 'type': type, 'scene': scene};        
+      sendMessage(socket, 'transition', JSON.stringify(msg));
+
+      //trigger scene change in obs
+      setTimeout(function(){
+        obsSocket.send(obsJSON);
+      }, 1000);        
+    }      
+  }	
 		
 		//*----- STATS & BRACKET -----*//
     
@@ -302,13 +300,14 @@
         <div class="triplet"><div class="row"> 
           <div class="button"><select id="sceneselect"></select></div>  
           <button type="button"id="refreshscenes">Refresh list</button>
-        </div></div>        
+        </div></div>  
+        <div class="button"><select id="transitionselect">
+          <option>drop</option>
+          <option>angle</option>
+        </select></div>  
         <button type="button"id="scenebutton">Change scene (auto drop/raise)</button>
         <button type="button"id="scenedropbutton">Change scene (drop only)</button>
-        <div class="triplet"><div class="row"> 
-            <div class="button"><button type="button" id="dropshutters">Drop Shutters</button></div>
-            <div class="button"><button type="button" id="raiseshutters" class="hidebutton">Raise Shutters</button></div>
-        </div></div>
+        <button type="button" id="raiseshutters" class="hidebutton">Raise Shutters</button>
     </div>
     
     <div class="panel">

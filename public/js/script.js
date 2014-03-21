@@ -56,13 +56,7 @@ $(document).ready(function () {
         pulseLowerThird(data);
         break;
       case 'transition':
-        playTransition();
-        break;
-      case 'dropshutters':
-        dropShutters();
-        break;
-      case 'raiseshutters':
-        raiseShutters();
+        playTransition(data);
         break;
       case 'showrosters':
         showRosters(data);
@@ -243,57 +237,158 @@ $(document).ready(function () {
     setTimeout(hideLowerThird, (1000 * msgParsed.duration));
   }
 
-  //*----- SCENE -----*//
+  //*----- TRANSITION -----*//
   
-  //programmatically generate shutter slices
   var numSlices = 8;
-  for (var i = 1; i <= numSlices; i++) {
-    $('#shuttercontainer').append('<div id="shutter' + i +
-      '" class="shutter"><img src="../img/logo_slices/logo_slice' + i + '.png"></div>');
-    $('#shutter' + i).css('left', (1 / numSlices) * (i - 1) * 100 + "%");
-    var bgColor = shadeColor("#fdfdfe", -15 * i); //light to dark
-    var bgGradient = shadeColor("#f37424", -15 * (numSlices - i + 1)); //invert, dark to light
-    $('#shutter' + i).css('background-color', bgColor);
-    $('#shutter' + i).css('background-image', '-webkit-linear-gradient(top, rgba(255,205,40,0) 10%, ' + bgGradient +' 99%)');
-  }
+  var currentAnim = '';
+  var inTrans = false;
   
-  function playTransition () {
-    dropShutters();
-    setTimeout(raiseShutters, 1300);
-  }
-  
-  function dropShutters () {
-    // play sound
-    setTimeout(function () {
-      //$.ionSound.play("transition_in");
-    }, 50);
-  
-    for (var i = 1; i <= numSlices; i++) {
-      $('#shutter' + i).delay(i * 50)
-        .transition({
-          'top': '0%',
-          'background-position-y': '0px'
-        }, 400, 'ease-out')
+  function playTransition (data) {
+    //don't start a new transition one is playing
+    if (inTrans == true) {
+      //return;
     }
-  }
-
-  function raiseShutters () {
-    // play sound
-    setTimeout(function () {
-      //$.ionSound.play("transition_out");
-    }, 50);
-
-    for (var i = 1; i <= numSlices; i++) {
-      $('#shutter' + i).delay(i * 50)
-        .transition({
-          'top': '-100%',
-          'background-position-y': '-5760px'
-        }, 400, 'ease-out')
-        .transition({
-          'background-position-y': '7200px'
-        }, 1)
+    
+    var msgParsed = JSON.parse(data.content);    
+    var anim = msgParsed.anim;
+    var type = msgParsed.type; //inOnly, outOnly, full
+    console.log(type);
+    if (anim == 'drop') {      
+      if (type == 'inOnly') {
+        console.log('dropInOnly');
+        dropIn();
+        return;
+      } else if (type == 'outOnly') {
+        console.log('dropOutOnly');
+        dropOut();
+        return;
+      }else if (type == 'full') {
+        console.log('dropFull');
+        dropIn();
+        setTimeout(dropOut, 1300);
+      }      
+    } else if (anim == 'angle') {      
+      if (type == 'inOnly') {
+        console.log('angleInOnly');
+        angleIn();
+        return;
+      } else if (type == 'outOnly') {
+        console.log('angleOutOnly');
+        angleOut();
+        return;
+      }else if (type == 'full') {
+        console.log('angleFull');
+        angleIn();
+        setTimeout(angleOut, 1300);
+      }
     }
-  }
+    
+    /* ANIMATION FUNCTIONS */
+    // drop
+    function dropInit() {
+      //programmatically generate shutter slices
+      $('#shuttercontainer').html('');
+      for (var i = 1; i <= numSlices; i++) {
+        $('#shuttercontainer').append('<div id="shutter' + i +
+          '" class="shutter"><img src="../img/logo_slices/logo_slice' + i + '.png"></div>');
+        var bgGradient = shadeColor("#f37424", -15 * (numSlices - i + 1)); //invert, dark to light
+        $('#shutter' + i).css({
+          'left': (1 / numSlices) * (i - 1) * 100 + "%",
+          'background-color': shadeColor("#fdfdfe", -15 * i), //light to dark
+          'background-image': '-webkit-linear-gradient(top, rgba(255,205,40,0) 10%, ' + bgGradient +' 99%)'
+        });
+      }
+    }
+    
+    function dropIn () {
+      inTrans = true;
+      dropInit();
+    
+      // play sound
+      setTimeout(function () {
+        //$.ionSound.play("transition_in");
+      }, 50);
+    
+      for (var i = 1; i <= numSlices; i++) {
+        $('#shutter' + i).delay(i * 50)
+          .transition({
+            'top': '0%',
+            'background-position-y': '0px'
+          }, 400, 'ease-out')
+      }
+    }
+    
+    function dropOut () {
+      // play sound
+      setTimeout(function () {
+        //$.ionSound.play("transition_out");
+      }, 50);
+      
+      for (var i = 1; i <= numSlices; i++) {
+        $('#shutter' + i).delay(i * 50)
+          .transition({
+            'top': '-100%',
+            'background-position-y': '-5760px'
+          }, 400, 'ease-out')
+          .transition({
+            'background-position-y': '7200px'
+          }, 1)
+      }
+      
+      inTrans = false;
+    }
+    
+    //angle
+    function angleInit() {
+      //programmatically generate shutter slices
+      $('#shuttercontainer').html('');      
+      for (var i = 1; i <= numSlices; i++) {
+        $('#shuttercontainer').append('<div id="shutter' + i + '" class="shutter"></div>');
+        $('#shutter' + i).css({
+          'left': (1 / numSlices) * (i - 1) * 100 + "%",
+          'top': (1 / numSlices) * (i - 1) * 100 + "%",
+          '-webkit-transform': 'translate(50%, -50%) rotate(60.65deg) translate3d(0,0,0)',
+          'height': 2000,
+          'width': 158,
+          'background-color': shadeColor("#fdfdfe", -15 * i), //light to dark,
+          '-webkit-mask': '-webkit-linear-gradient(top, black, black) no-repeat center top',
+          '-webkit-mask-size': '100% 0%'
+        });
+        
+        //flip mask for every other shutter slice
+        if (i % 2 == 0) {
+          $('#shutter' + i).css({
+            '-webkit-mask': '-webkit-linear-gradient(bottom, black, black) no-repeat center bottom',
+            '-webkit-mask-size': '100% 0%'
+          });
+        }      
+      }
+    }
+    
+    function angleIn() {
+      inTrans = true;
+      angleInit();
+      
+      setTimeout(function(){ 
+        for (var i = 1; i <= numSlices; i++) {
+          console.log('animating ' + i);
+          $('#shutter' + i).transition({
+            '-webkit-mask-size': '100% 100%'
+          }, 1000, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
+        }
+      }, 100);
+    }
+
+    function angleOut() {
+      for (var i = 1; i <= numSlices; i++) {
+        $('#shutter' + i).transition({
+          '-webkit-mask-size': '100% 0%'
+        }, 1000, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
+      }
+      
+      inTrans = false;
+    }    
+  }  
 
   function shadeColor (color, shade) {
     var colorInt = parseInt(color.substring(1), 16);
