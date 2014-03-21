@@ -254,7 +254,7 @@ $(document).ready(function () {
     var bgColor = shadeColor("#fdfdfe", -15 * i); //light to dark
     var bgGradient = shadeColor("#f37424", -15 * (numSlices - i + 1)); //invert, dark to light
     $('#shutter' + i).css('background-color', bgColor);
-    $('#shutter' + i).css('background-image', '-webkit-linear-gradient(top, rgba(255,205,40,0) 50%, ' + bgGradient +' 95%)');
+    $('#shutter' + i).css('background-image', '-webkit-linear-gradient(top, rgba(255,205,40,0) 10%, ' + bgGradient +' 99%)');
   }
   
   function playTransition () {
@@ -265,34 +265,33 @@ $(document).ready(function () {
   function dropShutters () {
     // play sound
     setTimeout(function () {
-      $.ionSound.play("transition_in");
+      //$.ionSound.play("transition_in");
     }, 50);
   
     for (var i = 1; i <= numSlices; i++) {
       $('#shutter' + i).delay(i * 50)
         .transition({
-          'top': '0%'
-        }, 500, 'linear')
-        .transition({
+          'top': '0%',
           'background-position-y': '0px'
-        }, 300, 'ease-in');
+        }, 400, 'ease-out')
     }
   }
 
   function raiseShutters () {
-    // play soundd
+    // play sound
     setTimeout(function () {
-      $.ionSound.play("transition_out");
+      //$.ionSound.play("transition_out");
     }, 50);
 
     for (var i = 1; i <= numSlices; i++) {
       $('#shutter' + i).delay(i * 50)
         .transition({
-          'background-position-y': '-720px'
-        }, 300, 'ease-out')
+          'top': '-100%',
+          'background-position-y': '-5760px'
+        }, 400, 'ease-out')
         .transition({
-          'top': '-100%'
-        }, 500, 'linear');
+          'background-position-y': '7200px'
+        }, 1)
     }
   }
 

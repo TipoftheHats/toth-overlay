@@ -279,11 +279,10 @@ body {
 .shutter {
   width: 12.5%;
   height: 100%;
-  -webkit-transition: background-color 0.4s linear;
   position: absolute;
   top: -100%;
-  background-size: 1px 1440px; 
-  background-position-y: -720px;
+  background-size: 1px 7200px; 
+  background-position-y: 7200px;
 }
 
 #shuttercontainer {
