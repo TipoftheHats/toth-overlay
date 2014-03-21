@@ -79,11 +79,16 @@
         }
         
         var numScenes = msgParsed.scenes.length;
+        var options = $('#sceneselect').html();
         var newoptions = "";
         for (var i = 0; i < numScenes; i++) {
           newoptions += "<option>"+ msgParsed.scenes[i].name +"</option>";
+        }   
+
+        //don't replace if nothing has changed
+        if (newoptions != options) {
           $('#sceneselect').html(newoptions);
-        }    
+        }
       };
       
       console.log("[SCENE] re-opening OBS socket");
@@ -104,7 +109,6 @@
     }
     
     function doWork() { 
-      console.log('dowork');
       var sceneRequest = {};
       sceneRequest["request-type"] = "GetSceneList";
 

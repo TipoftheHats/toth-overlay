@@ -385,6 +385,16 @@ $(document).ready(function () {
         }, 700, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
       }
       
+      //animate center logo
+      $('#logo').css('opacity', '100');
+      $('#logo').removeClass('bounceOut');
+      $('#logo').addClass('animated bounceIn');      
+      $('#logo').on('webkitAnimationEnd', 
+      function() {
+        
+        $('#logo').removeClass('bounceIn');
+      });
+      
       //trigger scene change in obs
       setTimeout(function(){
         obsSocket.send(JSON.stringify(msg));
@@ -393,10 +403,26 @@ $(document).ready(function () {
 
     function angleOut() {
       for (var i = 1; i <= numSlices; i++) {
+        //flip the masks so they transition out the other way
+        if (i % 2 == 0) {
+          $('#shutter' + i).css({
+            '-webkit-mask': '-webkit-linear-gradient(top, black, black) no-repeat center top',
+            '-webkit-mask-size': '100% 100%'
+          });
+        } else {
+          $('#shutter' + i).css({
+            '-webkit-mask': '-webkit-linear-gradient(bottom, black, black) no-repeat center bottom',
+            '-webkit-mask-size': '100% 100%'
+          });
+        }
+        
         $('#shutter' + i).transition({
           '-webkit-mask-size': '100% 0%'
-        }, 700, 'cubic-bezier(0.260, 0.860, 0.440, 0.985)');
+        }, 700, 'cubic-bezier(0.56, 0.015, 0.74, 0.14)');
       }
+      
+      //animate center logo
+      $('#logo').addClass('animated bounceOut');
       
       inTrans = false;
     }    
