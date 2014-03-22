@@ -8,8 +8,10 @@ var port = 1337;
 server.listen(port);
 
 app.configure(function(){
-   app.use(express.static(__dirname+'/public'));
-   app.use(express.bodyParser({strict: false}));
+  app.use(express.static(__dirname+'/public'));
+  app.use(express.bodyParser({strict: false}));
+  app.set('views', './views');
+  app.engine('html', require('ejs').renderFile);
 });
 
 app.all('*', function(req, res, next) {
@@ -46,6 +48,15 @@ app.get('/getbracket', function(req, res){
 	);
 });
 
+//password protect the widget control pages
+var auth = express.basicAuth('tothprod', '.goodsh0w.');
+app.get('/widget', auth, function(req, res) {
+  res.render('widget.html');
+});
+
+app.get('/dotawidget', auth, function(req, res) {
+  res.render('dotawidget.html');
+});
 
 /* PATH REPLACEMENT CODE BELOW VIA http://pxl.gg/2012/07/05/writing-a-reverse-proxy-with-node-js-part-2/ (MODIFIED)*/
 
