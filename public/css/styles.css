@@ -350,6 +350,7 @@ body {
   -webkit-mask: -webkit-linear-gradient(left, black, black) no-repeat center;
   -webkit-mask-size: 0% 100%;
   text-shadow: 0 0 2px rgba(150,150,150,.5);
+  background-image: -webkit-linear-gradient(left, #F5333D 50%, #0A82DD 50%);
 }
 
 #rosterbody {
