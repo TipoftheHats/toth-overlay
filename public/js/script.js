@@ -12,8 +12,10 @@ $(document).ready(function () {
         "lowerthird_out",
         "socialmedia_in-v2",
         "socialmedia_out-v2",
-        "transition_in",
-        "transition_out",
+        "transition_drop_in",
+        "transition_drop_out",
+        "transition_angle_in",
+        "transition_angle_out",
         "roster_in_9",
         "roster_in_6",
         "roster_out"
@@ -304,7 +306,7 @@ $(document).ready(function () {
       dropInit();
     
       // play sound
-      //$.ionSound.play("transition_in");
+      $.ionSound.play("transition_drop_in");
     
       for (var i = 1; i <= numSlices; i++) {
         $('#shutter' + i).delay((i - 1) * 50)
@@ -322,7 +324,7 @@ $(document).ready(function () {
     
     function dropOut () {
       // play sound
-      //$.ionSound.play("transition_out");
+      $.ionSound.play("transition_drop_out");
       
       for (var i = 1; i <= numSlices; i++) {
         $('#shutter' + i).delay((i - 1) * 50)
@@ -369,6 +371,9 @@ $(document).ready(function () {
       inTrans = true;
       angleInit();
       
+      // play sound
+      $.ionSound.play("transition_angle_in");
+      
       for (var i = 1; i <= numSlices; i++) {
         console.log('animating ' + i);
         $('#shutter' + i).transition({
@@ -393,6 +398,9 @@ $(document).ready(function () {
     }
 
     function angleOut() {
+      // play sound
+      $.ionSound.play("transition_angle_out");
+    
       for (var i = 1; i <= numSlices; i++) {
         //flip the masks so they transition out the other way
         if (i % 2 == 0) {
