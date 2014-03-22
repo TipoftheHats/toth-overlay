@@ -116,13 +116,28 @@
     }
   }
   
-  function prepTransition(type) {   
+  function prepTransition(type, scene, rand) {   
     //get new list of scenes
     requestScenes();
     
     //get values from drop down select boxes
     var anim = $('#transitionselect').find("option:selected").val();
-    var scene = $('#sceneselect').find("option:selected").val();
+    scene = typeof scene !== 'undefined' ? scene : $('#sceneselect').find("option:selected").val();
+    
+    //pick a random anim if rand == true
+    rand = typeof rand !== 'undefined' ? rand : false;
+    if (rand == true) {
+      var max = 2 //number of anims
+      var min = 1;
+      switch (Math.floor(Math.random() * (max - min + 1)) + min) {
+        case 1:
+          anim = 'drop';
+          break;
+        case 2:
+          anim = 'angle';
+          break;
+      }
+    }
     
     //set up json request for obs scene change             
     var obs = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
@@ -261,7 +276,7 @@
     
     //*----- BRB -----*//
     
-    $('#gotobrbscene').click(function() { prepSceneChange('toth2-brb', true); });
+    $('#gotobrbscene').click(function() { prepTransition('full', 'toth2-brb', true); });
     $('#showupnext').click(function() { sendMessage(socket, 'showupnext', $('#upnext').val()); });
     $('#hideupnext').click(function() { sendMessage(socket, 'hideupnext', ''); });
     $('#showcountdown').click(function() { sendMessage(socket, 'showcountdown', $('#countdown').val() + ':00'); });
