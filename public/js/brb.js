@@ -1,8 +1,5 @@
+//execute after the DOM has loaded
 $(document).ready(function (){
-  $.getScript("js/jquery.transit.min.js", function () {
-    console.log("jQuery.Transit loaded and executed.");
-  });
-
   var messages = [];
   var dashHostname = 'http://'+document.location.hostname+':1337';
   var dashSocket = io.connect(dashHostname);
@@ -80,4 +77,21 @@ $(document).ready(function (){
   
     $('#countdown').addClass('animated fadeOutDown');
   }	
+});
+
+function sendMessage(socket, commandstring, meta) {
+  socket.emit('send', {message: commandstring, content: meta });
+}
+
+// execute after all of the graphics have loaded
+$(window).load(function() {  
+  console.log("[BRB] Page Loaded");
+  var url = $.url();
+  if (url.param('raiseshutters') == 'true') {
+    console.log("[BRB] RaiseShutters is set to 'true'. Sending 'raiseshutters' message.");
+    var hostname = 'http://'+document.location.hostname+':1337';
+    var socket = io.connect(hostname);
+    var msg = {'anim':'', 'type': 'outLast', 'scene': ''};        
+    sendMessage(socket, 'transition', JSON.stringify(msg)); 
+  }
 });
