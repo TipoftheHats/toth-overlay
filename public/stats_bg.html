@@ -1,0 +1,28 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/bg.css">
+<script src="/socket.io/socket.io.js"></script>
+<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
+<script src="js/SeamlessLoop.js"></script>
+<script>
+  var loop = new SeamlessLoop();
+  loop.addUri("/img/bg/toth_stats.ogg", 37960, "sound1");
+  loop.callback(soundsLoaded);
+  function soundsLoaded() {
+    console.log("[BG] Sound Loop Loaded");
+    loop.start("sound1");
+    loop.volume(0.25);
+  };
+</script>
+</head>
+<body>
+<div id="container">
+	<div class="video main">
+    <video id="bg" width="1280" height="720" autoplay="" loop="" muted="muted" style="display: block;" poster="/img/bg/toth_stats.jpg">
+      <source src="img/bg/toth_stats.webm" type="video/webm">
+    </video>
+    </div>
+</div>
+</body>
+</html>
+
