@@ -1,0 +1,25 @@
+body {
+  margin: 0px;
+}
+
+#container {
+    position: relative;
+    width: 1280;
+    height: 720;
+    overflow: hidden;
+}
+
+.staging {
+  left: 100%;
+  z-index: 0;
+}
+
+.main {
+  z-index: 1;
+}
+
+.video {
+  position: absolute;
+  width: 1280;
+  height: 720;
+}

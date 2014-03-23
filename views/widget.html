@@ -286,6 +286,10 @@
       datepicker:false,
       format:'H:i'
     });
+    
+    //*----- BG VIDEO -----*//
+    
+    $('#changebg').click(function() { sendMessage(socket, 'changebg', $('#bgselect').find("option:selected").val()); });
   }    
  </script>
 </head>
@@ -457,7 +461,33 @@
         <div class="button"><button type="button" id="showcountdown">Show Countdown</button></div>
         <div class="button"><button type="button" id="hidecountdown" class="hidebutton">Hide Countdown</button></div>
       </div></div>
-    </div>    
+    </div>
+
+  <div class="panel" id="bgvid">
+    <span class="heading">Background Video:</span>
+    <i class="fa fa-play"></i>
+    <div class="triplet"><div class="row">
+      <select id="bgselect">
+        <option>toth_bball.webm</option>
+        <option>toth_crate.webm</option>
+        <option>toth_dota.webm</option>
+        <option>toth_greatest.webm</option>
+        <option>toth_jump.webm</option>
+        <option>toth_mge.webm</option>
+        <option>toth_naeu6s.webm</option>
+        <option>toth_naeuhl.webm</option>
+        <option>toth_outro.webm</option>
+        <option>toth_pub.webm</option>
+        <option>toth_pub2.webm</option>
+        <option>toth_rand.webm</option>
+        <option>toth_rtd.webm</option>
+        <option>toth_stats.webm</option>
+        <option>toth_surf.webm</option>
+        <option>toth_ultiduo.webm</option>
+      </select>    
+      <div class="button"><button type="button" id="changebg">Change BG Vid</button></div>
+    </div></div>
+  </div>
 </div>
 </div>
 </body>
