@@ -21,8 +21,16 @@ $(document).ready(function (){
     
     var vid = '<video id="bg" width="1280" height="720" autoplay="" loop="" style="display: block;">'
       + '<source src="img/bg/' + data.content + '" type="video/webm"></video>';
+      
+    console.log($('.main').html());
+    console.log(vid);
+    if ($('.main').html() == vid) {
+      //same vid
+      return;
+    }
 
     $('.staging').html(vid);
+    $('.staging #bg').get(0).volume = 0.25;
     $('.staging #bg').on('loadeddata', doWork); 
     
     function doWork() {
