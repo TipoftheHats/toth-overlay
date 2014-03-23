@@ -27,3 +27,19 @@ $(document).ready(function (){
 		document.getElementById('ss_frame').src = "";	
     }	
 });
+
+function sendMessage(socket, commandstring, meta) {
+  socket.emit('send', {message: commandstring, content: meta });
+}
+
+// execute after all of the graphics have loaded
+$(window).load(function() {  
+  console.log("[STATS] Page Loaded");
+  var url = $.url();
+  if (url.param('changebg') == 'true') {
+    console.log("[STATS] ChangeBG is set to 'true'. Sending 'changebg' message.");
+    var hostname = 'http://'+document.location.hostname+':1337';
+    var socket = io.connect(hostname);       
+    sendMessage(socket, 'changebg', 'toth_stats.webm');
+  }
+});
