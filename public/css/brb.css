@@ -3,12 +3,9 @@
 /**************************************/
 @font-face {
     font-family: 'AvenirMedium';
-    src: url('../font/avenir_medium.eot');
-    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
-         url('../font/avenir_medium.woff') format('woff'),
-         url('../font/avenir_medium.ttf') format('truetype'),
-         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
+    src: url('../font/avenir_medium.svg') format('svg');
 }
+
 body {
   padding: 0px;
   margin: 0px;
@@ -33,13 +30,14 @@ body {
 /* ----- Text ----- */
 
 #brb {	
-	font-size: 95px; 
+	font-size: 96px; 
   text-align: center;
   position: relative;
   left: 50%;
   -webkit-transform: translate(-50%, 0%);
   color: #f4f4f5;
-  text-shadow: 0 0 2px rgba(0,0,0,1);
+  text-shadow: 0px 2px 5px rgba(0,0,0,0.75);
+  -webkit-font-smoothing: antialiased;
   height: 28.15%;
   line-height: 169px;
 }
