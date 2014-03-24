@@ -316,19 +316,21 @@
     </div>
     
     <div class="panel">
-        <span class="heading">Scene name:</span>
+        <span class="heading">Scene Changing:</span>
         <i class="fa fa-video-camera"></i>
         <div class="triplet"><div class="row"> 
-          <div class="button"><select id="sceneselect"></select></div>  
           <button type="button"id="refreshscenes">Refresh list</button>
+          <div class="button"><select id="sceneselect"></select></div>  
         </div></div>  
-        <div class="button"><select id="transitionselect">
+        <div class="button">Transition type: <select id="transitionselect">
           <option>drop</option>
           <option>angle</option>
         </select></div>  
-        <button type="button"id="scenebutton">Change scene (auto drop/raise)</button>
-        <button type="button"id="scenedropbutton">Change scene (drop only)</button>
-        <button type="button" id="raiseshutters" class="hidebutton">Raise Shutters</button>
+        <div class="triplet"><div class="row">
+          <div class="button"><button type="button"id="scenebutton">Change scene (auto drop/raise)</button></div>
+          <div class="button"><button type="button"id="scenedropbutton">Change scene (drop only)</button></div>
+        </div></div>
+        <button type="button" id="raiseshutters" class="hidebutton">Raise Shutters</button>         
     </div>
     
     <div class="panel">
@@ -336,11 +338,7 @@
         <i class="fa fa-bar-chart-o"></i>
         <input type="field" id="statsid" style="width:100%" />
         <button type="button" id="showstatsbutton">Update stats</button>
-    </div>
-    
-    <div class="panel">
         <span class="heading">Challonge Bracket ID:</span>
-        <i class="fa fa-list"></i>
         <input type="field" id="bracketid" style="width:100%" />
         <button type="button" id="showbracketbutton">Update bracket</button>
     </div>
@@ -428,8 +426,10 @@
                 </div>
             </div>
         </div>
-        <button type="button" id="updatescores">Update scoreboard</button>
-        <button type="button" id="swapteamcolors">Swap team colors</button>
+        <div class="triplet"><div class="row"> 
+          <div class="button"><button type="button" id="updatescores">Update scoreboard</button></div>
+          <div class="button"><button type="button" id="swapteamcolors">Swap team colors</button></div>
+        </div></div>
     </div>
     
     <div class="panel" id="rosters">
@@ -440,9 +440,11 @@
             <div class="button"><input type="radio" name="rostersize" value="9">9v9</div>
         </div></div>
         <div class="table" id="rostertable"></div>
-        <button type="button" id="swaprosters">Swap rosters</button>
-        <button type="button" id="showrosters">Show rosters</button>
-        <button type="button" id="hiderosters" class="hidebutton">Hide rosters</button>
+        <div class="triplet"><div class="row"> 
+          <div class="button"><button type="button" id="showrosters">Show Rosters</button></div>
+          <div class="button"><button type="button" id="swaprosters">Swap Rosters</button></div>
+          <div class="button"><button type="button" id="hiderosters" class="hidebutton">Hide rosters</button></div>
+        </div></div>
     </div>
     
     <div class="panel" id="brb">
