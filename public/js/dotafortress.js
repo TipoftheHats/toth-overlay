@@ -188,6 +188,72 @@ $(document).ready(function (){
 		scout: [
 			"clockwork",
 			"ruwin",
+			"cyzer",
+			"shrugger",
+			"youmustmike",
+			"deadbolt",
+			"stratovarius",
+      "sezco",
+      "justin",
+      ""
+		],
+		soldier: [
+			"blaze",
+			"grape",
+			"tagg",
+			"ma3la",
+      "milo",
+			"mangachu",
+			"marmaduke",
+			"",
+			"",
+      ""
+		],
+		pyro: [
+			"cygnus",
+			"hueylewis",
+			"puddingcup"
+		],
+		demoman: [
+			"xalox",
+			"duwatna",
+			"phrakture",
+			"",
+			""
+		],
+		heavy: [
+			"arthur",
+			"skyrolla",
+			"oplaid"   
+		],
+		engineer: [
+			"sigafoo",
+			"spamfest",
+			"vhalin"   
+		],
+		medic: [
+			"smaka",
+			"shade",
+			"indust",
+			"pyyyour",
+			"ninjanick"
+		],
+		sniper: [
+			"max",
+			"paragon",
+			"powah"
+		],
+		spy: [
+			"stabby",
+			"hei",
+			"acooma"
+		]   
+	};
+  
+  var videos = {
+		scout: [
+			"clockwork",
+			"ruwin",
 			"squid",
 			"cyzer",
 			"decimate",
@@ -257,10 +323,11 @@ $(document).ready(function (){
     $('#' + c).html('');
     for (var j = 0; j < players[c].length; j++) {
       var p = players[c][j];
+      var v = videos[c][j];
       $('#' + c).append('<div id="' + p + '" class="playercard ' + c + 'card">' + 
                         '<p>' + p + '</p>' + 
                         '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + p + '_red.jpg">' +           
-                        '<source id="webmsource" src="/img/dotafortress/portrait/' + p + '_red.webm" type="video/webm"></video></div>'
+                        '<source id="webmsource" src="/img/dotafortress/portrait/' + v + '_red.webm" type="video/webm"></video></div>'
       );
     }
   }
