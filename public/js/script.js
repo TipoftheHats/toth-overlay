@@ -264,7 +264,7 @@ $(document).ready(function () {
         dropOut();
       }else if (type == 'full') {
         dropIn();
-        setTimeout(dropOut, 900);
+        setTimeout(dropOut, 1000);
       }      
     } else if (anim == 'angle') {      
       if (type == 'inOnly') {
@@ -273,7 +273,7 @@ $(document).ready(function () {
         angleOut();
       }else if (type == 'full') {
         angleIn();
-        setTimeout(angleOut, 800);
+        setTimeout(angleOut, 900);
       }
     } else if (type == 'outLast') {
       console.log(currentAnim);
