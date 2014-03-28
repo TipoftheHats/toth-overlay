@@ -62,7 +62,7 @@
   $('#scenedropbutton').click(function() { prepTransition('inOnly'); });
   $('#raiseshutters').click(function() { prepTransition('outOnly'); });
   
-  var obsRemoteURL = 'ws://localhost:4444';
+  var obsRemoteURL = 'ws://192.168.1.2:4444';
   var obsSocket = new WebSocket(obsRemoteURL, "obsapi");
   checkOBSSocket();
   
@@ -70,6 +70,9 @@
     //re-open the socket if it is not "OPEN" (1)
     if (obsSocket.readyState != 1) {
       obsSocket.close();
+      if ($('#obsip').val()) {
+        obsRemoteURL = 'ws://' + $('#obsip').val();
+      }      
       obsSocket = new WebSocket(obsRemoteURL, "obsapi");
       obsSocket.onopen = function (e) { requestScenes(); };
       obsSocket.onmessage = function (e) {
@@ -138,10 +141,6 @@
           break;
       }
     }
-    
-    //set up json request for obs scene change             
-    var obs = {"request-type": "SetCurrentScene", "scene-name": scene, "message-id": 1};
-    var obsJSON = JSON.stringify(obs);
 
     var msg = {'anim': anim, 'type': type, 'scene': scene};        
     sendMessage(socket, 'transition', JSON.stringify(msg));              
@@ -318,6 +317,7 @@
     <div class="panel">
         <span class="heading">Scene Changing:</span>
         <i class="fa fa-video-camera"></i>
+        <input type="field" id="obsip" style="width:100%" />
         <div class="triplet"><div class="row"> 
           <button type="button"id="refreshscenes">Refresh list</button>
           <div class="button"><select id="sceneselect"></select></div>  
