@@ -4,7 +4,73 @@
  <script src="/socket.io/socket.io.js"></script>
  <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
  <script>
-	var globaloptions = {
+	var players = {
+		scout: [
+			"clockwork",
+			"ruwin",
+			"cyzer",
+			"shrugger",
+			"youmustmike",
+			"deadbolt",
+			"stratovarius",
+      "sezco",
+      "justin",
+      "squid"
+		],
+		soldier: [
+			"blaze",
+			"grape",
+			"tagg",
+			"ma3la",
+      "mackey",
+			"seagull",
+			"marmaduke",
+			"paddie",
+			"tyrone",
+      "zbryan"
+		],
+		pyro: [
+			"satan",
+			"hueylewis",
+			"puddingcup"
+		],
+		demoman: [
+			"xalox",
+			"duwatna",
+			"alfa",
+			"pyyyour",
+			"pharaoh"
+		],
+		heavy: [
+			"arthur",
+			"skyrolla",
+			"oplaid"   
+		],
+		engineer: [
+			"sigafoo",
+			"spamfest",
+			"vhalin"   
+		],
+		medic: [
+			"smaka",
+			"shade",
+			"indust",
+			"thefragile",
+			"ninjanick"
+		],
+		sniper: [
+			"max",
+			"paragon",
+			"powah"
+		],
+		spy: [
+			"stabby",
+			"hei",
+			"acooma"
+		]   
+	};
+  
+  var videos = {
 		scout: [
 			"clockwork",
 			"ruwin",
@@ -32,7 +98,7 @@
 		pyro: [
 			"cygnus",
 			"hueylewis",
-			"puddingcup"   
+			"puddingcup"
 		],
 		demoman: [
 			"bdonski",
@@ -77,12 +143,13 @@
 
     function populatePlayerSelect() {
       var selectedClass = $('#classselect').find("option:selected").attr("class");    
-      var options = globaloptions[selectedClass];
+      var p = players[selectedClass];
+      var v = videos[selectedClass];
       var newoptions = "";
-      for(var i = 0; i < options.length; i++){
-        newoptions+="<option>"+ options[i] +"</option>";
-        $("#playerselect").html(newoptions);           
+      for(var i = 0; i < p.length; i++){
+        newoptions += '<option val="' + v[i] + '">'+ p[i] +'</option>';         
       }
+      $("#playerselect").html(newoptions); 
     }
 
     //initalize

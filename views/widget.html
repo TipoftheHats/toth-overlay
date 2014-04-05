@@ -275,7 +275,7 @@
     
     //*----- BRB -----*//
     
-    $('#gotobrbscene').click(function() { prepTransition('inOnly', 'toth2-brb', true); });
+    $('#gotobrbscene').click(function() { prepTransition('full', 'toth2-brb', true); });
     $('#showupnext').click(function() { sendMessage(socket, 'showupnext', $('#upnext').val()); });
     $('#hideupnext').click(function() { sendMessage(socket, 'hideupnext', ''); });
     $('#showcountdown').click(function() { sendMessage(socket, 'showcountdown', $('#countdown').val() + ':00'); });

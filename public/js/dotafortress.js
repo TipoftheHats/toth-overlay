@@ -195,31 +195,31 @@ $(document).ready(function (){
 			"stratovarius",
       "sezco",
       "justin",
-      ""
+      "squid"
 		],
 		soldier: [
 			"blaze",
 			"grape",
 			"tagg",
 			"ma3la",
-      "milo",
-			"mangachu",
+      "mackey",
+			"seagull",
 			"marmaduke",
-			"",
-			"",
-      ""
+			"paddie",
+			"tyrone",
+      "zbryan"
 		],
 		pyro: [
-			"cygnus",
+			"satan",
 			"hueylewis",
 			"puddingcup"
 		],
 		demoman: [
 			"xalox",
 			"duwatna",
-			"phrakture",
-			"",
-			""
+			"alfa",
+			"pyyyour",
+			"pharaoh"
 		],
 		heavy: [
 			"arthur",
@@ -235,7 +235,7 @@ $(document).ready(function (){
 			"smaka",
 			"shade",
 			"indust",
-			"pyyyour",
+			"thefragile",
 			"ninjanick"
 		],
 		sniper: [
@@ -326,7 +326,7 @@ $(document).ready(function (){
       var v = videos[c][j];
       $('#' + c).append('<div id="' + p + '" class="playercard ' + c + 'card">' + 
                         '<p>' + p + '</p>' + 
-                        '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + p + '_red.jpg">' +           
+                        '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + v + '_red.jpg">' +           
                         '<source id="webmsource" src="/img/dotafortress/portrait/' + v + '_red.webm" type="video/webm"></video></div>'
       );
     }
@@ -402,7 +402,7 @@ $(document).ready(function (){
         
 				
 				//dim the playercard since it can no longer be picked
-				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.7)');
+				$(''+"#"+msgParsed.player+'').css('-webkit-filter','brightness(0.3)');
 				
 				if(msgParsed.team == "red") {
 					//$(msgParsed.slot).css('-webkit-filter','drop-shadow(0px 0px 10px rgba(255,158,158,1.0))  brightness(1.3)');
