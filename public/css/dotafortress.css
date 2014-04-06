@@ -1,14 +1,3 @@
-/**************************************/
-/*     	          FONT		    	  */
-/**************************************/
-@font-face {
-    font-family: 'AvenirMedium';
-    src: url('../font/avenir_medium.eot');
-    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
-         url('../font/avenir_medium.woff') format('woff'),
-         url('../font/avenir_medium.ttf') format('truetype'),
-         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
-}
 @font-face {
     font-family: 'antonioregular';
     src: url('../font/antonio-regular-webfont.eot');
@@ -55,7 +44,7 @@ p {
 /* ----- Text ----- */
 
 #title {
-	font-family: AvenirMedium;
+	font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
 	font-size: 36px;
     padding-left: 40%;
 	color: white;
@@ -65,7 +54,7 @@ p {
 #redname {
 	position: relative;
 	z-index: 2;
-	font-family: AvenirMedium;
+	font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
 	font-size: 20px;
 	color: white;
 	text-align: right;
@@ -75,7 +64,7 @@ p {
 #bluname {
 	position: relative;
 	z-index: 2;
-	font-family: AvenirMedium;
+	font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
 	font-size: 20px;
 	color: white;
 	-webkit-filter: drop-shadow(0px 0px 10px rgba(158,202,255,1.0));

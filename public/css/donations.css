@@ -1,16 +1,7 @@
-@font-face {
-    font-family: 'AvenirMedium';
-    src: url('../font/avenir_medium.eot');
-    src: url('../font/avenir_medium.eot') format('embedded-opentype'),
-         url('../font/avenir_medium.woff') format('woff'),
-         url('../font/avenir_medium.ttf') format('truetype'),
-         url('../font/avenir_medium.svg#AvenirMedium') format('svg');
-}
-
 body {
     margin: 0px;
 	background:black;
-    font-family: AvenirMedium;
+    font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
 }
 
 

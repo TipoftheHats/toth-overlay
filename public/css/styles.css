@@ -1,15 +1,3 @@
-/**************************************/
-/*     	          FONT		    	  */
-/**************************************/
-@font-face {
-  font-family: 'AvenirMedium';
-  src: url('../font/avenir_medium.eot');
-  src: url('../font/avenir_medium.eot') format('embedded-opentype'),
-       url('../font/avenir_medium.woff') format('woff'),
-       url('../font/avenir_medium.ttf') format('truetype'),
-       url('../font/avenir_medium.svg#AvenirMedium') format('svg');
-}
-
 body {
   padding: 0px;
   margin: 0px;
@@ -34,7 +22,7 @@ body {
 #links {
   color: #f4f4f5; 
   background-color: transparent;
-  font-family: AvenirMedium;
+  font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
   font-size:26px;
   line-height: 36px;
   position:absolute;
@@ -145,7 +133,7 @@ body {
 #alert {
   color: #f4f4f5; 
   background-color: #f4f4f5;
-  font-family: AvenirMedium;
+  font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
   font-size:20px;
   line-height: 1.4em;
   position:absolute;
@@ -229,7 +217,7 @@ body {
 #lowerthird {
   color: #f4f4f5; 
   background-color: transparent;
-  font-family: AvenirMedium;
+  font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
   font-size:20px;
   line-height: 1.4em;
   max-width: 40.5%;
@@ -330,7 +318,7 @@ body {
 #rostercontainer {
   color: #f4f4f5; 
   background-color: transparent;
-  font-family: AvenirMedium;
+  font-family: "AvenirLTStd-Medium",Helvetica,Arial,sans-serif;
   font-size:26px;
   line-height: 36px;
   position:absolute;
