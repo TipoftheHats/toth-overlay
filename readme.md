@@ -1,6 +1,16 @@
 # TotH-Overlay
 This is the live graphics package used for [Tip of the Hats 2014](https://www.youtube.com/playlist?list=PLJUPqfTTJdNnxdK5YlAo3y2jQj188jl0_).
 
+# Credits
+[Lange](http://alexvancamp.com), lead programmer & designer
+[Atmo](https://github.com/atmosfar), original concept and code
+[Airon](http://aironaudio.weebly.com/), sound designer
+[Krunkidile](https://youtube.com/user/anangrysockpuppet), SFM portrait artist
+[Suyo](https://www.youtube.com/user/suyooo), SFM background artist
+
+# Video Dependencies
+[SFM Backgrounds], extract to "toth-overlay/public/img/"
+
 # Node Dependencies
 [ejs](http://embeddedjs.com/)
 [express](http://expressjs.com/)
