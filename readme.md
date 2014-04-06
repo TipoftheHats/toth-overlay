@@ -11,6 +11,9 @@ This is the live graphics package used for [Tip of the Hats 2014](https://www.yo
 # Video Dependencies
 [SFM Backgrounds], extract to "toth-overlay/public/img/"
 
+# Sound Dependencies
+The Dota Fortress display page makes use of the "cheer" and "jeer" sounds from Team Fortress 2. If you wish to have these sounds play during the pick & ban events, you will have to extract and convert them yourself.
+
 # Node Dependencies
 [ejs](http://embeddedjs.com/)
 [express](http://expressjs.com/)
