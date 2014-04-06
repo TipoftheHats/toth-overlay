@@ -250,72 +250,6 @@ $(document).ready(function (){
 		]   
 	};
   
-  var videos = {
-		scout: [
-			"clockwork",
-			"ruwin",
-			"squid",
-			"cyzer",
-			"decimate",
-			"enigma",
-			"shrugger",
-			"youmustmike",
-			"deadbolt",
-      "br0nze"
-		],
-		soldier: [
-			"blaze",
-			"tlr",
-			"seagull",
-			"lansky",
-			"grape",
-			"tagg",
-			"ma3la",
-			"milo",
-			"rr",
-			"platinum"
-		],
-		pyro: [
-			"cygnus",
-			"hueylewis",
-			"puddingcup"
-		],
-		demoman: [
-			"bdonski",
-			"xalox",
-			"duwatna",
-			"b4nny",
-			"dummy"
-		],
-		heavy: [
-			"snailboat",
-			"arthur",
-			"skyrolla"   
-		],
-		engineer: [
-			"sigafoo",
-			"spamfest",
-			"vhalin"   
-		],
-		medic: [
-			"smaka",
-			"shade",
-			"indust",
-			"pyyyour",
-			"harbleu"
-		],
-		sniper: [
-			"bloodsire",
-			"max",
-			"paragon"
-		],
-		spy: [
-			"stabby",
-			"hei",
-			"acooma"
-		]   
-	};
-  
   /* programmatically generate each player's card, appending it to the
    * corresponding tf2class div in the html scaffolding in dotafortress.html */
   for (var i = 0; i < classes.length; i++) {
@@ -323,11 +257,10 @@ $(document).ready(function (){
     $('#' + c).html('');
     for (var j = 0; j < players[c].length; j++) {
       var p = players[c][j];
-      var v = videos[c][j];
       $('#' + c).append('<div id="' + p + '" class="playercard ' + c + 'card">' + 
                         '<p>' + p + '</p>' + 
-                        '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + v + '_red.jpg">' +           
-                        '<source id="webmsource" src="/img/dotafortress/portrait/' + v + '_red.webm" type="video/webm"></video></div>'
+                        '<video class="portrait" width="62" height="84" autoplay="" loop="" muted="muted" style="z-index: -1; display: block;" poster="/img/dotafortress/portrait/' + c + (j + 1) + '_red.jpg">' +           
+                        '<source id="webmsource" src="/img/dotafortress/portrait/' + c + (j + 1) + '_red.webm" type="video/webm"></video></div>'
       );
     }
   }

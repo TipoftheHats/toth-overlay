@@ -69,72 +69,6 @@
 			"acooma"
 		]   
 	};
-  
-  var videos = {
-		scout: [
-			"clockwork",
-			"ruwin",
-			"squid",
-			"cyzer",
-			"decimate",
-			"enigma",
-			"shrugger",
-			"youmustmike",
-			"deadbolt",
-      "br0nze"
-		],
-		soldier: [
-			"blaze",
-			"tlr",
-			"seagull",
-			"lansky",
-			"grape",
-			"tagg",
-			"ma3la",
-			"milo",
-			"rr",
-			"platinum"
-		],
-		pyro: [
-			"cygnus",
-			"hueylewis",
-			"puddingcup"
-		],
-		demoman: [
-			"bdonski",
-			"xalox",
-			"duwatna",
-			"b4nny",
-			"dummy"
-		],
-		heavy: [
-			"snailboat",
-			"arthur",
-			"skyrolla"   
-		],
-		engineer: [
-			"sigafoo",
-			"spamfest",
-			"vhalin"   
-		],
-		medic: [
-			"smaka",
-			"shade",
-			"indust",
-			"pyyyour",
-			"harbleu"
-		],
-		sniper: [
-			"bloodsire",
-			"max",
-			"paragon"
-		],
-		spy: [
-			"stabby",
-			"hei",
-			"acooma"
-		]   
-	};
     
 	$(document).ready(function(){
 		$("#classselect").change(function(){
@@ -144,10 +78,9 @@
     function populatePlayerSelect() {
       var selectedClass = $('#classselect').find("option:selected").attr("class");    
       var p = players[selectedClass];
-      var v = videos[selectedClass];
       var newoptions = "";
       for(var i = 0; i < p.length; i++){
-        newoptions += '<option val="' + v[i] + '">'+ p[i] +'</option>';         
+        newoptions += '<option val="' + selectedClass + (i + 1) + '">'+ p[i] +'</option>';         
       }
       $("#playerselect").html(newoptions); 
     }
