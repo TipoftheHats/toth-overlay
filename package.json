@@ -1,5 +1,5 @@
 {
-  "name": "TotH Overlay",
+  "name": "toth-overlay",
   "version": "1.0.0",
   "description": "Live graphics for Tip of the Hats 2014",
   "dependencies": {
