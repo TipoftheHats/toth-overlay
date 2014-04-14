@@ -1,6 +1,17 @@
 # TotH-Overlay
 This is the live graphics package used for [Tip of the Hats 2014](https://www.youtube.com/playlist?list=PLJUPqfTTJdNnxdK5YlAo3y2jQj188jl0_).
 
+# Windows Usage
+1. Download and install Node.js 32-bit, 64-bit will not work
+2. From the Node.js command prompt, do the following:
+```
+cd /toth-overlay
+npm install
+node server.js
+```
+3. Open either the main control widget or the Dota Fortress widget by navigating to http://localhost:1337/widget or http://localhost:1337/dotawidget, respectively.
+4. Open the display page for the graphic you wish to control, or add it as a [CLR Browser Source](http://obsproject.com/forum/resources/clr-browser-source-plugin.22/) in OBS.
+
 # Credits
 [Lange](http://alexvancamp.com), lead programmer & designer  
 [Atmo](https://github.com/atmosfar), original concept and code  
