@@ -53,8 +53,14 @@ app.get('/getbracket', function(req, res){
 app.get('/widget', auth, function(req, res) {
   res.render('widget.html');
 });*/
+app.get('/widget', function(req, res) {
+  res.render('widget.html');
+});
 
-app.get('/dotawidget', auth, function(req, res) {
+/*app.get('/dotawidget', auth, function(req, res) {
+  res.render('dotawidget.html');
+});*/
+app.get('/dotawidget', function(req, res) {
   res.render('dotawidget.html');
 });
 
