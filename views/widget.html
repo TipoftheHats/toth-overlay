@@ -1,24 +1,27 @@
 <html>
 <head>
- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"></link>
- <link rel="stylesheet" type="text/css" href="css/widget_style.css">
- <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
- <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
- <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'/></script>
+ <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+ <link rel="stylesheet" type="text/css" href="css/widget_style.css"/>
+ <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+ <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
+ <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
  <script src="/socket.io/socket.io.js"></script>
  <script src="js/masonry.pkgd.min.js"></script>
+ <script src="js/imagesloaded.pkgd.min.js"></script>
  <script src="js/jquery.datetimepicker.js"></script>
  <script>
   function sendMessage(socket, commandstring, meta) {
     socket.emit('send', {message: commandstring, content: meta });
-  }	
-	
+  }
+
   window.onload = function() {
   var $container = $('#container');
   // initialize
-  $container.masonry({
-    columnWidth: 264,
-    itemSelector: '.panel'
+  $container.imagesLoaded(function () {
+    $container.masonry({
+      columnWidth: 264,
+      itemSelector: '.panel'
+    })
   });
   
   var messages = [];
