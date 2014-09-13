@@ -1,5 +1,5 @@
 # TotH-Overlay
-This is the live graphics package used for [Tip of the Hats 2014](https://www.youtube.com/playlist?list=PLJUPqfTTJdNnxdK5YlAo3y2jQj188jl0_).
+This is the live graphics package used for [Tip of the Hats 2014](https://www.youtube.com/playlist?list=PLJUPqfTTJdNnxdK5YlAo3y2jQj188jl0_). This software is considered obsolete, and has been replaced by [NodeCG](https://github.com/nodecg/nodecg).
 
 # Windows Installation
 1. Download and install Node.js 32-bit, 64-bit will not work
